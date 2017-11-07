@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html>
 
 	<head>
@@ -43,7 +44,8 @@
 				iconCls : 'icon-add',
 				handler : function(){
 					//alert('增加');
-					window.location.href="../../standard_save";
+//					window.location.href="../../standard_save";
+                    $("#standardWindow").window("open");
 				}
 			}, {
 				id : 'button-edit',
@@ -113,6 +115,17 @@
 				width : 120,
 				align : 'center'
 			} ] ];
+
+			$(function(){
+                $("#save").click(function(){
+                    var v=$("#standardForm").form("validate");
+                    if(v){
+                        $("#standardForm").submit();
+                    }else{
+                        alert("请填写所有信息!");
+                    }
+                })
+            })
 		</script>
 	</head>
 
@@ -121,7 +134,8 @@
 			<table id="grid"></table>
 		</div>
 		
-		<div class="easyui-window" title="对收派标准进行添加或者修改" id="standardWindow" collapsible="false" minimizable="false" maximizable="false" modal="true" closed="true" style="width:600px;top:50px;left:200px">
+		<div class="easyui-window" title="对收派标准进行添加或者修改" id="standardWindow" collapsible="false" minimizable="false"
+             maximizable="false" modal="true" closed="true" style="width:600px;top:50px;left:200px">
 			<div region="north" style="height:31px;overflow:hidden;" split="false" border="false">
 				<div class="datagrid-toolbar">
 					<a id="save" icon="icon-save" href="#" class="easyui-linkbutton" plain="true">保存</a>
@@ -130,7 +144,8 @@
 
 			<div region="center" style="overflow:auto;padding:5px;" border="false">
 				
-				<form>
+				<form id="standardForm" action="../../standard/standardAction_save.action"
+					  method="post">
 					<table class="table-edit" width="80%" align="center">
 						<tr class="title">
 							<td colspan="2">收派标准信息

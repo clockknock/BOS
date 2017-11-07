@@ -15,16 +15,58 @@
     </script>
 </head>
 <body class="easyui-layout">
-<div id="win" class="easyui-window" title="My Window" style="width:600px;height:400px"
-     data-options="iconCls:'icon-save',modal:true">
-    <form>
-        用户名:<input id="username" class="easyui-validatebox"
-                   data-options="required:true"/><br>
+<div class="easyui-window" title="对收派标准进行添加或者修改" id="standardWindow" collapsible="false" minimizable="false" maximizable="false" modal="true" closed="true" style="width:600px;top:50px;left:200px">
+    <div region="north" style="height:31px;overflow:hidden;" split="false" border="false">
+        <div class="datagrid-toolbar">
+            <a id="save" icon="icon-save" href="#" class="easyui-linkbutton" plain="true">保存</a>
+        </div>
+    </div>
 
-        邮箱:<input id="email" class="easyui-validatebox"
-                  data-options="required:true,validType:'email'"/><br>
+    <div region="center" style="overflow:auto;padding:5px;" border="false">
 
-    </form>
+        <form>
+            <table class="table-edit" width="80%" align="center">
+                <tr class="title">
+                    <td colspan="2">收派标准信息
+                        <!--提供隐藏域 装载id -->
+                        <input type="hidden" name="id" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>收派标准名称</td>
+                    <td>
+                        <input type="text" name="name"
+                               class="easyui-validatebox" data-options="required:true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>最小重量</td>
+                    <td>
+                        <input type="text" name="minWeight"
+                               class="easyui-numberbox" required="true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>最大重量</td>
+                    <td>
+                        <input type="text" name="maxWeight" class="easyui-numberbox" required="true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>最小长度</td>
+                    <td>
+                        <input type="text" name="minLength" class="easyui-numberbox" required="true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>最大长度</td>
+                    <td>
+                        <input type="text" name="maxLength" class="easyui-numberbox" required="true" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
 </div>
 
 </body>

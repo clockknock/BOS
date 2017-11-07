@@ -13,10 +13,10 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 open class StandardServiceImpl: StandardService {
-    
-    override fun save(model: Standard) {
-        dao.save(model)
+    override fun save(standard: Standard) {
+        dao.save(standard)
     }
+
 
     @Autowired lateinit var dao: StandardDao
 
