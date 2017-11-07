@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>01_layout</title>
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="js/ztree/zTreeStyle.css">
+    <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="js/ztree/jquery.ztree.all-3.5.js"></script>
+
+    <script type="text/javascript">
+        function addTab(parent, tabName, content) {
+            if (parent.tabs("exists", tabName)) {
+                $(parent).tabs("select", tabName);
+            } else {
+                $(parent).tabs("add", {
+                    title: tabName,
+                    content: content,
+                    closable: true
+                })
+            }
+        }
+
+        $(function () {
+            var $center = $("#center");
+            //点击添加tabs新增tab
+            $("#addTabs").click(function () {
+                addTab($center, "新增tab", "这是tab内容")
+            });
+
+            //基本的json格式ztree
+            var $myZtree1 = $("#myZtree1");
+            var setting = {};
+            var nodes = [{name: '节点1', children: [{name: '节点1-1'},{name: '节点1-2'}]},
+                {name: '节点2'},
+                {name: '节点3'}];
+
+            $.fn.zTree.init($myZtree1, setting, nodes);
+
+            //简单json格式ztree
+            var $myZtree2 = $("#myZtree2");
+            var setting1 = {
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                }
+            };
+            var nodes1 = [
+                {id: "001", name: "节点1"},
+                {id: "0011", pId: "001", name: "节点1-1"},
+                {id: "0012", pId: "001", name: "节点1-2"},
+                {id: "00121", pId: "0012", name: "节点1-2-1"},
+                {id: "00122", pId: "0012", name: "节点1-2-2"},
+                {id: "002", name: "节点2"},
+                {id: "003", name: "节点3"}
+            ];
+
+            $.fn.zTree.init($myZtree2, setting1, nodes1);
+            //读取json创建ztree
+            var url = "data/menu.json";
+            $.post(url, function (data) {
+                var $myZtree3 = $("#myZtree3");
+                var setting2 = {
+                    data: {
+                        simpleData: {
+                            enable: true
+                        }
+                    },
+                    callback: {
+                        onClick: function (event, treeId, treeNode) {
+                            console.log(treeNode.page);
+                            if (treeNode.page !== undefined) {
+                                var iFrame =
+                                    "<iframe src='" + treeNode.page + "' style='width: 100%;height: 100%;'></iframe>";
+                                addTab($center, treeNode.name, iFrame);
+                            } else {
+                                //可以控制单击展开,但没什么意义,双击可以处理
+                                var zTree = $.fn.zTree.getZTreeObj("myZtree3");
+                                zTree.expandNode(treeNode);
+
+                            }
+                        }
+                    }
+                };
+                $.fn.zTree.init($myZtree3, setting2, data);
+
+            }, "json");
+
+        })
+    </script>
+</head>
+<body class="easyui-layout">
+
+<div data-options="title:'北部面板',region:'north'" style="height: 100px;">北部面板</div>
+<div data-options="title:'东部面板',region:'east'" style="width: 100px;">东部面板</div>
+
+<!-- 中心tab -->
+<div class="easyui-tabs" data-options="title:'中部面板',region:'center'" id="center"></div>
+
+<div data-options="title:'菜单栏',region:'west'" style="width: 200px;">
+    <div class="easyui-accordion" data-options="fit:true">
+        <div title="添加tabs">
+            <input type="button" id="addTabs" value="点击添加tab">
+        </div>
+        <div title="基本json格式ztree">
+            <ul class="ztree" id="myZtree1">
+
+            </ul>
+        </div>
+        <div title="简单json格式ztree">
+            <ul id="myZtree2" class="ztree"></ul>
+        </div>
+        <div title="读取json创建ztree">
+            <ul id="myZtree3" class="ztree"></ul>
+        </div>
+    </div>
+
+
+</div>
+<div data-options="title:'南部面板',region:'south'" style="height: 100px;">南部面板</div>
+</body>
+</html>
