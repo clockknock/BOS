@@ -53,7 +53,7 @@ public class Courier {
 	private TakeTime takeTime;
 
 	@ManyToMany(mappedBy = "couriers")
-	private Set<FixedArea> fixedAreas = new HashSet<FixedArea>();
+	private Set<FixedArea> fixedAreas = new HashSet<>();
 
 	public Integer getId() {
 		return id;

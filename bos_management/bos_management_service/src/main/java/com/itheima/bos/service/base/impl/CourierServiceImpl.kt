@@ -1,0 +1,28 @@
+package com.itheima.bos.service.base.impl
+
+import com.itheima.bos.dao.base.CourierDao
+import com.itheima.bos.domain.base.Courier
+import com.itheima.bos.service.base.CourierService
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+
+/**
+ * Created by 钟未鸣 on 2017/11/8 .
+ */
+@Service
+@Transactional
+open class CourierServiceImpl : CourierService {
+    override fun pageQuery(page: Int, rows: Int): Page<Courier> {
+
+        return dao.findAll(PageRequest(page, rows))
+    }
+
+    override fun save(courier: Courier) {
+        dao.save(courier)
+    }
+
+    @Autowired lateinit var dao: CourierDao
+}

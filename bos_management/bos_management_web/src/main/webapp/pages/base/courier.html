@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html>
 
 	<head>
@@ -141,7 +142,7 @@
 					pageList: [30,50,100],
 					pagination : true,
 					toolbar : toolbar,
-					url : "../../data/courier.json",
+					url : "../../courier/courierAction_pageQuery.action",
 					idField : 'id',
 					columns : columns,
 					onDblClickRow : doDblClickRow
@@ -159,7 +160,18 @@
 			    });
 				
 			});
-		
+
+			$(function(){
+                $("#save").click(function(){
+                    var v=$("#courierForm").form("validate");
+                    if(v){
+                        $("#courierForm").submit();
+					}else{
+                        $.messager.alert("提示信息","请填写所有数据!","warning")
+					}
+				})
+			})
+
 			function doDblClickRow(){
 				alert("双击表格数据...");
 			}
@@ -178,7 +190,8 @@
 			</div>
 
 			<div region="center" style="overflow:auto;padding:5px;" border="false">
-				<form>
+				<form id="courierForm" action="../../courier/courierAction_save.action"
+					  method="post">
 					<table class="table-edit" width="80%" align="center">
 						<tr class="title">
 							<td colspan="4">收派员信息</td>
