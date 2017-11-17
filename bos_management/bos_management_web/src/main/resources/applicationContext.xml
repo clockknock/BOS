@@ -47,7 +47,7 @@
                 <property name="generateDdl" value="true" />
                 <property name="database" value="ORACLE" />
                 <property name="databasePlatform" value="org.hibernate.dialect.Oracle10gDialect" />
-                <property name="showSql" value="true" />
+                <property name="showSql" value="false" />
             </bean>
         </property>
         <property name="jpaDialect">

@@ -78,7 +78,7 @@
                 pageList: [30, 50, 100],
                 pagination: true,
                 toolbar: toolbar,
-                url: "../../standard/standardAction_pageQuery.action",
+                url: "../../standard/pageQuery.action",
                 idField: 'id',
                 columns: columns
             });
@@ -100,12 +100,12 @@
             iconCls: 'icon-edit',
             handler: function () {
                 var rows = $("#grid").datagrid("getSelections");
-                if(rows.length!=1){
-                    $.messager.alert("提示信息","每次只能编辑一条!","warning");
-                }else{
+                if (rows.length != 1) {
+                    $.messager.alert("提示信息", "每次只能编辑一条!", "warning");
+                } else {
                     $("#standardWindow").window("open");
 
-                    $("#standardForm").form("load",rows[0]);
+                    $("#standardForm").form("load", rows[0]);
                 }
             }
         }, {
@@ -115,13 +115,13 @@
             handler: function () {
                 var rows = $("#grid").datagrid("getSelections");
                 if (rows.length == 0) {
-                    $.messager.alert("提示信息","请选择删除的标准!","warning")
+                    $.messager.alert("提示信息", "请选择删除的标准!", "warning")
                 } else {
-                    var ids=Array();
-                   $(rows).each(function(i){
-                       ids.push(this.id);
-                   })
-                    location.href="../../standard/standardAction_deleteBatch.action?ids="+ids;
+                    var ids = Array();
+                    $(rows).each(function (i) {
+                        ids.push(this.id);
+                    })
+                    location.href = "../../standard/deleteBatch.action?ids=" + ids;
                 }
             }
         }, {
@@ -163,7 +163,7 @@
 
     <div region="center" style="overflow:auto;padding:5px;" border="false">
 
-        <form id="standardForm" action="../../standard/standardAction_save.action"
+        <form id="standardForm" action="../../standard/save.action"
               method="post">
             <table class="table-edit" width="80%" align="center">
                 <tr class="title">

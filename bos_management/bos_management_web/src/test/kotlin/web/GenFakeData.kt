@@ -22,6 +22,7 @@ class GenFakeData {
     @Autowired private lateinit var courierDao: CourierDao
     @Autowired private lateinit var standardDao: StandardDao
 
+
     @Test
     fun genCourier() {
         for (x in 1..150) {

@@ -9,4 +9,5 @@ import org.springframework.data.domain.Page
 interface CourierService {
     fun save(courier: Courier)
     fun pageQuery(page: Int, rows: Int): Page<Courier>
+    fun deleteBatch(ids: String)
 }

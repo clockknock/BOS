@@ -55,6 +55,25 @@ public class Courier {
 	@ManyToMany(mappedBy = "couriers")
 	private Set<FixedArea> fixedAreas = new HashSet<>();
 
+	@Override
+	public String toString() {
+		return "Courier{" +
+				"id=" + id +
+				", courierNum='" + courierNum + '\'' +
+				", name='" + name + '\'' +
+				", telephone='" + telephone + '\'' +
+				", pda='" + pda + '\'' +
+				", deltag=" + deltag +
+				", checkPwd='" + checkPwd + '\'' +
+				", type='" + type + '\'' +
+				", company='" + company + '\'' +
+				", vehicleType='" + vehicleType + '\'' +
+				", vehicleNum='" + vehicleNum + '\'' +
+				", standard=" + standard +
+				", takeTime=" + takeTime +
+				'}';
+	}
+
 	public Integer getId() {
 		return id;
 	}
