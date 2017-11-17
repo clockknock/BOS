@@ -6,6 +6,7 @@ import com.itheima.bos.service.base.CourierService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
+import org.springframework.data.jpa.domain.Specification
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -15,6 +16,10 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 open class CourierServiceImpl : CourierService {
+    override fun pageQuery(spec: Specification<Courier>, rows: PageRequest): Page<Courier> {
+        return dao.findAll(spec, rows)
+    }
+
     override fun deleteBatch(ids: String) {
         val split = ids.split(",")
         for (id in split) {

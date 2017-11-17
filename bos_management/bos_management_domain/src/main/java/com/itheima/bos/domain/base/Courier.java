@@ -44,6 +44,16 @@ public class Courier {
 	@Column(name = "C_VEHICLE_NUM")
 	private String vehicleNum; // 车牌号
 
+	public Courier() {
+	}
+
+	public Courier(String courierNum, String type, String company, Standard standard) {
+		this.courierNum = courierNum;
+		this.type = type;
+		this.company = company;
+		this.standard = standard;
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "C_STANDARD_ID")
 	private Standard standard;
