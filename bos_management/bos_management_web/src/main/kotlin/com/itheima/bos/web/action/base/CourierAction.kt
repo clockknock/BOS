@@ -1,29 +1,21 @@
 package com.itheima.bos.web.action.base
 
-import com.google.gson.ExclusionStrategy
-import com.google.gson.FieldAttributes
-import com.google.gson.GsonBuilder
 import com.itheima.bos.domain.base.Courier
-import com.itheima.bos.domain.base.PageData
 import com.itheima.bos.service.base.CourierService
 import com.itheima.bos.web.action.common.CommonAction
-import com.opensymphony.xwork2.ActionSupport
-import com.opensymphony.xwork2.ModelDriven
 import org.apache.struts2.convention.annotation.Action
 import org.apache.struts2.convention.annotation.Namespace
 import org.apache.struts2.convention.annotation.ParentPackage
 import org.apache.struts2.convention.annotation.Result
-import org.apache.struts2.interceptor.ServletResponseAware
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.jpa.domain.Specification
-import java.util.ArrayList
+import java.util.*
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.Predicate
 import javax.persistence.criteria.Root
-import javax.servlet.http.HttpServletResponse
 
 /**
  * Created by 钟未鸣 on 2017/11/8 .
@@ -47,7 +39,6 @@ class CourierAction :CommonAction<Courier>() {
     @Action(value = "save", results = arrayOf(Result(name = "save_success",
             location = "/pages/base/courier.html")))
     fun save(): String {
-        println(model)
         service.save(model)
         return SAVESUCCESS
     }

@@ -17,18 +17,9 @@ import javax.servlet.http.HttpServletResponse
  * Created by 钟未鸣 on 2017/11/17 .
  */
 open class CommonAction<T> : ActionSupport(), ModelDriven<T>, ServletResponseAware {
-    private lateinit var response: HttpServletResponse
-    override fun setServletResponse(response: HttpServletResponse) {
-        response.contentType="text/html;charset=utf-8"
-        this.response = response
-    }
 
-    private var model: T? = null// 声明模型对象
+    private  var model: T? = null// 声明模型对象
     override fun getModel(): T? = model
-
-    // 使用属性驱动接收页面提交的分页参数
-    open var page: Int = 0// 当前页码
-    open var rows: Int = 0// 每页显示的记录数
 
     // 在运行期动态获得泛型的具体类型，并通过反射创建model对象
     init {
@@ -39,18 +30,24 @@ open class CommonAction<T> : ActionSupport(), ModelDriven<T>, ServletResponseAwa
         // 获得实体类型
         val entityClass = actualTypeArguments[0] as Class<*>
         // 通过反射创建model对象
-        try {
         @Suppress("UNCHECKED_CAST")
             model = entityClass.newInstance() as T
-        } catch (e: InstantiationException) {
-            e.printStackTrace()
-        } catch (e: IllegalAccessException) {
-            e.printStackTrace()
-        }
-
     }
 
-    //将分页数据转为json响应到页面
+    // 使用属性驱动接收页面提交的分页参数
+    open var page: Int = 0// 当前页码
+    open var rows: Int = 0// 每页显示的记录数
+
+    private lateinit var response: HttpServletResponse
+    override fun setServletResponse(response: HttpServletResponse) {
+        response.contentType="text/html;charset=utf-8"
+        this.response = response
+    }
+
+    /**
+     * 将分页数据转为json响应到页面
+     * @param regex: 转json时需要过滤的field
+     */
     fun page2Json(page: Page<*>,regex: Regex?) {
         val total = page.totalElements
         val rows = page.content

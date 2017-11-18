@@ -9,6 +9,7 @@
         <module name="bos_management_dao" />
         <module name="bos_management_domain" />
         <module name="bos_management_service" />
+        <module name="bos_management_utils" />
         <module name="bos_management_web" />
       </profile>
     </annotationProcessing>
@@ -18,6 +19,7 @@
       <module name="bos_management_domain" target="1.7" />
       <module name="bos_management_service" target="1.5" />
       <module name="bos_management_test" target="1.5" />
+      <module name="bos_management_utils" target="1.5" />
       <module name="bos_management_web" target="1.5" />
       <module name="common_parent" target="1.5" />
     </bytecodeTargetLevel>

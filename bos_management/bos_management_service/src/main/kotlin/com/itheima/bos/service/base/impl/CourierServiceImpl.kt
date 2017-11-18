@@ -16,9 +16,8 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 open class CourierServiceImpl : CourierService {
-    override fun pageQuery(spec: Specification<Courier>, rows: PageRequest): Page<Courier> {
-        return dao.findAll(spec, rows)
-    }
+    override fun pageQuery(spec: Specification<Courier>, rows: PageRequest): Page<Courier> =
+            dao.findAll(spec, rows)
 
     override fun deleteBatch(ids: String) {
         val split = ids.split(",")

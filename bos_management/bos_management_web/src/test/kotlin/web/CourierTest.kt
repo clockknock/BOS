@@ -61,7 +61,7 @@ open class CourierTest {
                 // company like ?
                 list.add(p3)
             }
-            if (standard != null && standard.name.isNotBlank()) {
+            if ( standard.name.isNotBlank()) {
                 //需要条件一个过滤条件，根据收派标准名称等值查询
                 val join = root.join<Any, Any>("standard")
                 val p4 = cb.like(join.get<String>("name").`as`(String::class.java), standard.name)

@@ -17,6 +17,11 @@
             <artifactId>bos_management_dao</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.itheima.maven</groupId>
+            <artifactId>bos_management_utils</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>

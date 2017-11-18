@@ -16,6 +16,7 @@
         <module>bos_management_dao</module>
         <module>bos_management_web</module>
         <module>bos_management_service</module>
+        <module>bos_management_utils</module>
     </modules>
 
 </project>

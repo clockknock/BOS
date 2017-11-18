@@ -14,21 +14,16 @@ import org.springframework.transaction.annotation.Transactional
  */
 @Service
 @Transactional
-open class StandardServiceImpl: StandardService {
-    override fun findAll(): List<Standard> {
-     return   dao.findAll()
-    }
+open class StandardServiceImpl : StandardService {
+    override fun findAll(): List<Standard> = dao.findAll()
 
     override fun deleteBatch(ids: String) {
         val idsList = ids.split(",")
-        idsList.forEach {  dao.deleteStandard(it.toInt()) }
-
+        idsList.forEach { dao.deleteStandard(it.toInt()) }
     }
 
-    override fun pageQuery(page: Int, rows: Int): Page<Standard> {
-
-        return dao.findAll(PageRequest(page,rows))
-    }
+    override fun pageQuery(page: Int, rows: Int): Page<Standard> =
+            dao.findAll(PageRequest(page, rows))
 
     override fun save(standard: Standard) {
         dao.save(standard)

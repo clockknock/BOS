@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="Maven: org.springframework:spring-beans:4.2.4.RELEASE">
     <ANNOTATIONS>
-      <root url="file://$PROJECT_DIR$/bos_management/bos_management_service/src/main/java/com/itheima/bos/service/base" />
+      <root url="file://$PROJECT_DIR$/bos_management/bos_management_service/src/main/kotlin/com/itheima/bos/service/base" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="jar://$USER_HOME$/.m2/repository/org/springframework/spring-beans/4.2.4.RELEASE/spring-beans-4.2.4.RELEASE.jar!/" />
