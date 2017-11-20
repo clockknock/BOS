@@ -1,8 +1,10 @@
 package com.itheima.bos.web.action.common
 
+import com.alibaba.fastjson.JSONArray
 import com.google.gson.ExclusionStrategy
 import com.google.gson.FieldAttributes
 import com.google.gson.GsonBuilder
+import com.itheima.bos.domain.base.Area
 import com.itheima.bos.domain.base.PageData
 import com.opensymphony.xwork2.ActionSupport
 import com.opensymphony.xwork2.ModelDriven
@@ -16,13 +18,13 @@ import javax.servlet.http.HttpServletResponse
 /**
  * Created by 钟未鸣 on 2017/11/17 .
  */
-open class CommonAction<T> : ActionSupport(), ModelDriven<T>, ServletResponseAware {
+open class CommonAction<T : Any> : ActionSupport(), ModelDriven<T>, ServletResponseAware {
 
-    private  var model: T? = null// 声明模型对象
-    override fun getModel(): T? = model
+    private var model: T// 声明模型对象
+    override fun getModel(): T = model
 
     // 在运行期动态获得泛型的具体类型，并通过反射创建model对象
-    init {
+    init {//init代码块用于初始化参数,有了init代码块可以省略lateinit修饰符
         // 获得父类（CommonAction）对应的类型
         val genericSuperclass = this.javaClass.genericSuperclass as ParameterizedType
         // 获得父类上声明的泛型类型数组
@@ -31,16 +33,16 @@ open class CommonAction<T> : ActionSupport(), ModelDriven<T>, ServletResponseAwa
         val entityClass = actualTypeArguments[0] as Class<*>
         // 通过反射创建model对象
         @Suppress("UNCHECKED_CAST")
-            model = entityClass.newInstance() as T
+        model = entityClass.newInstance() as T
     }
 
     // 使用属性驱动接收页面提交的分页参数
     open var page: Int = 0// 当前页码
     open var rows: Int = 0// 每页显示的记录数
 
-    private lateinit var response: HttpServletResponse
+    open lateinit var response: HttpServletResponse
     override fun setServletResponse(response: HttpServletResponse) {
-        response.contentType="text/html;charset=utf-8"
+        response.contentType = "text/html;charset=utf-8"
         this.response = response
     }
 
@@ -48,7 +50,7 @@ open class CommonAction<T> : ActionSupport(), ModelDriven<T>, ServletResponseAwa
      * 将分页数据转为json响应到页面
      * @param regex: 转json时需要过滤的field
      */
-    fun page2Json(page: Page<*>,regex: Regex?) {
+    fun page2Json(page: Page<*>, regex: Regex?) {
         val total = page.totalElements
         val rows = page.content
         val map = HashMap<String, Any>()
@@ -69,6 +71,12 @@ open class CommonAction<T> : ActionSupport(), ModelDriven<T>, ServletResponseAwa
         ).create()
         val json = gson.toJson(PageData(page.totalElements, page.content))
         response.writer.append(json)
+    }
+
+    open fun list2Json(list: List<Area>) {
+
+        val toJson = JSONArray(list).toJSONString()
+        response.writer.append(toJson)
     }
 }
 

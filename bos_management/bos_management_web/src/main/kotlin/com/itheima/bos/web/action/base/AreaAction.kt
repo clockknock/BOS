@@ -1,15 +1,13 @@
 package com.itheima.bos.web.action.base
 
-import com.itheima.bos.domain.base.Area
 import com.itheima.bos.service.base.AreaService
-import com.itheima.bos.service.base.impl.AreaServiceImpl
 import com.itheima.bos.utils.PinYin4jUtils
 import com.itheima.bos.web.action.common.CommonAction
+import com.itheima.bos.domain.base.Area
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.struts2.convention.annotation.Action
 import org.apache.struts2.convention.annotation.Namespace
 import org.apache.struts2.convention.annotation.ParentPackage
-import org.apache.struts2.convention.annotation.Result
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
 import org.springframework.data.domain.PageRequest
@@ -32,6 +30,11 @@ class AreaAction : CommonAction<Area>() {
         this.areaFile = areaFile
     }
 
+    private  var q: String?=null
+    fun setQ(q: String) {
+        this.q = q
+    }
+
     @Action(value = "importXls")
     fun importXls(): String {
         val wb = HSSFWorkbook(areaFile.inputStream())
@@ -41,14 +44,31 @@ class AreaAction : CommonAction<Area>() {
     }
 
     @Action(value = "pageQuery")
-    fun pageQuery():String{
+    fun pageQuery(): String {
         val pageRequest = PageRequest(page - 1, rows)
         val pageQuery = service.pageQuery(pageRequest)
 
-        page2Json(pageQuery,Regex("subareas"))
+        page2Json(pageQuery, Regex("subareas"))
         return NONE
     }
 
+    @Action(value = "findAll")
+    fun findAll(): String {
+        val findAll:List<Area>
+        if(q!=null){
+          findAll=  service.findByQ(q!!)
+        }else{
+         findAll = service.findAll()
+
+        }
+//        findAll.forEach { println(it.name) }
+        list2Json(findAll)
+        return NONE
+    }
+
+    /**
+     * 从上传xls中获取area的集合
+     */
     private fun getAreas(wb: HSSFWorkbook): ArrayList<Area> {
         val sheet = wb.getSheetAt(0)
 

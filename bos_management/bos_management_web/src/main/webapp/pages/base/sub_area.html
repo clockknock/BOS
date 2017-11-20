@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -198,6 +199,15 @@
 				$("#btn").click(function(){
 					alert("执行查询...");
 				});
+
+				$("#save").click(function(){
+				    var v = $("#subareaForm").form("validate");
+				    if(v){
+						$("#subareaForm").submit();
+					}else{
+				        $.messager.alert("提示","请将信息填写完整!","warning");
+					}
+				})
 			});
 		
 			function doDblClickRow(){
@@ -214,12 +224,12 @@
 		<div class="easyui-window" title="分区添加修改" id="addWindow" collapsible="false" minimizable="false" maximizable="false" style="top:20px;left:200px">
 			<div style="height:31px;overflow:hidden;" split="false" border="false">
 				<div class="datagrid-toolbar">
-					<a id="save" icon="icon-save" href="#" class="easyui-linkbutton" plain="true">保存</a>
+					<a id="save" icon="icon-save"  class="easyui-linkbutton" plain="true">保存</a>
 				</div>
 			</div>
 
 			<div style="overflow:auto;padding:5px;" border="false">
-				<form id="subareaForm" method="post" action="../../subareaAction_save.action">
+				<form id="subareaForm" method="post" action="../../subArea/save.action">
 					<table class="table-edit" width="80%" align="center">
 						<tr class="title">
 							<td colspan="2">分区信息</td>
@@ -229,7 +239,7 @@
 							<td>
 								<input class="easyui-combobox" name="area.id"
 									 data-options="valueField:'id',textField:'name',
-									 url:''" />
+									 url:'../../area/findAll.action',mode:'remote'" />
 							</td>
 						</tr>
 						<tr>

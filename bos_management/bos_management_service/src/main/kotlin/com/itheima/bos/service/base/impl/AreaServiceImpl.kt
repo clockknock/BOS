@@ -1,8 +1,8 @@
 package com.itheima.bos.service.base.impl
 
 import com.itheima.bos.dao.base.AreaDao
-import com.itheima.bos.domain.base.Area
 import com.itheima.bos.service.base.AreaService
+import com.itheima.bos.domain.base.Area
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -15,6 +15,10 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 open class AreaServiceImpl : AreaService {
+    override fun findByQ(q: String): List<Area> =dao.findByQ("%$q%")
+
+    override fun findAll(): List<Area> = dao.findAll()
+
     override fun pageQuery(pageRequest: PageRequest): Page<Area> = dao.findAll(pageRequest)
 
     override fun save(areas: ArrayList<Area>) {

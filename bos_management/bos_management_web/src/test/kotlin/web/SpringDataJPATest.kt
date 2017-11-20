@@ -26,6 +26,13 @@ import com.google.gson.FieldAttributes
 @ContextConfiguration("classpath:applicationContext.xml")
 open class SpringDataJPATest {
 
+    @Test //根据name查找相似
+    fun testLike(){
+        println(dao.findByNameLike("%good%"))
+    }
+
+
+
     @Test //测试保存
     fun testJPASave() {
         val model = Standard()

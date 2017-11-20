@@ -23,7 +23,7 @@ import javax.persistence.criteria.Root
 @Namespace("/courier")
 @ParentPackage("struts-default")
 @Scope("prototype")
-class CourierAction :CommonAction<Courier>() {
+class CourierAction : CommonAction<Courier>() {
     lateinit private var ids: String
     fun setIds(ids: String) {
         this.ids = ids
@@ -61,7 +61,7 @@ class CourierAction :CommonAction<Courier>() {
         return com.opensymphony.xwork2.Action.NONE
     }
 
-    inner class CourierSpecification:Specification<Courier>{
+    inner class CourierSpecification : Specification<Courier> {
         override fun toPredicate(root: Root<Courier>, query: CriteriaQuery<*>, cb:
         CriteriaBuilder): Predicate? {
             val standard = model.standard
@@ -103,7 +103,7 @@ class CourierAction :CommonAction<Courier>() {
                 return null
             }
 
-           return cb.and(*list.toTypedArray())
+            return cb.and(*list.toTypedArray())
         }
 
     }

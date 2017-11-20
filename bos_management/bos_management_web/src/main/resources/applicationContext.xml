@@ -36,7 +36,9 @@
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <!-- 指定扫描的包，存放实体类 -->
-        <property name="packagesToScan" value="com.itheima.bos.domain" />
+        <property name="packagesToScan"
+                  value="com.itheima.bos.domain" />
+
         <!-- 指定持久层提供者为Hibernate -->
         <property name="persistenceProvider">
             <bean class="org.hibernate.ejb.HibernatePersistence" />
@@ -47,7 +49,7 @@
                 <property name="generateDdl" value="true" />
                 <property name="database" value="ORACLE" />
                 <property name="databasePlatform" value="org.hibernate.dialect.Oracle10gDialect" />
-                <property name="showSql" value="false" />
+                <property name="showSql" value="true" />
             </bean>
         </property>
         <property name="jpaDialect">
@@ -69,6 +71,7 @@
 
      <!--整合 spring data jpa-->
     <jpa:repositories base-package="com.itheima.bos.dao" />
+
 
 
 </beans>
