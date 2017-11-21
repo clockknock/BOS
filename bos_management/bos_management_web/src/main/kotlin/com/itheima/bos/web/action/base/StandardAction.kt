@@ -27,9 +27,6 @@ class StandardAction : CommonAction<Standard>() {
         this.ids = ids
     }
 
-    private val model = Standard()
-    override fun getModel(): Standard = model
-
     /**
      * 增加标准
      */

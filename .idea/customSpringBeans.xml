@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CustomBeanRegistry">
+    <option name="map">
+      <map>
+        <entry key="&lt;jaxws:client xmlns:jaxws=&quot;http://cxf.apache.org/jaxws&quot; id=&quot;crmClient&quot; address=&quot;http://localhost:8082/webservice/customer&quot; serviceClass=&quot;com.itheima.bos.crm.service.CustomerService&quot; /&gt;">
+          <value>
+            <list>
+              <CustomBeanInfo>
+                <option name="beanName" value="crmClient.proxyFactory" />
+                <option name="beanClassName" value="org.apache.cxf.jaxws.JaxWsProxyFactoryBean" />
+              </CustomBeanInfo>
+              <CustomBeanInfo>
+                <option name="beanName" value="crmClient" />
+                <option name="beanClassName" value="org.apache.cxf.jaxws.spring.JaxWsProxyFactoryBeanDefinitionParser$JAXWSSpringClientProxyFactoryBean" />
+                <option name="idAttribute" value="id" />
+              </CustomBeanInfo>
+            </list>
+          </value>
+        </entry>
+        <entry key="&lt;jaxws:server xmlns:jaxws=&quot;http://cxf.apache.org/jaxws&quot; xmlns=&quot;http://www.springframework.org/schema/beans&quot; id=&quot;customerService&quot; address=&quot;/customer&quot; start=&quot;true&quot;&gt;&#10;  &lt;jaxws:serviceBean&gt;&#10;    &lt;ref bean=&quot;customerServiceImpl&quot; /&gt;&#10;  &lt;/jaxws:serviceBean&gt;&#10;&lt;/jaxws:server&gt;">
+          <value>
+            <list>
+              <CustomBeanInfo>
+                <option name="beanName" value="customerService" />
+                <option name="beanClassName" value="org.apache.cxf.jaxws.spring.NamespaceHandler$SpringServerFactoryBean" />
+                <option name="idAttribute" value="id" />
+              </CustomBeanInfo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

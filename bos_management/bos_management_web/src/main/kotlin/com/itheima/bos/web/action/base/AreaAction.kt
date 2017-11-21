@@ -30,10 +30,11 @@ class AreaAction : CommonAction<Area>() {
         this.areaFile = areaFile
     }
 
-    private  var q: String?=null
+     var q: String? = null
+/*    private  var q: String?=null
     fun setQ(q: String) {
         this.q = q
-    }
+    }*/
 
     @Action(value = "importXls")
     fun importXls(): String {
@@ -54,14 +55,12 @@ class AreaAction : CommonAction<Area>() {
 
     @Action(value = "findAll")
     fun findAll(): String {
-        val findAll:List<Area>
-        if(q!=null){
-          findAll=  service.findByQ(q!!)
-        }else{
-         findAll = service.findAll()
+        val findAll: List<Area> = if (q != null) {
+            service.findByQ(q!!)
+        } else {
+            service.findAll()
 
         }
-//        findAll.forEach { println(it.name) }
         list2Json(findAll)
         return NONE
     }

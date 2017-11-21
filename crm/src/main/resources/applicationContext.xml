@@ -21,7 +21,7 @@
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
         <property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.73.100:1521:ORCL" />
-        <property name="user" value="bosadmin" />
+        <property name="user" value="boscrm" />
         <property name="password" value="itheima" />
     </bean>
     <!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -37,7 +37,7 @@
         <property name="dataSource" ref="dataSource" />
         <!-- 指定扫描的包，存放实体类 -->
         <property name="packagesToScan"
-                  value="com.itheima.bos.domain" />
+                  value="com.itheima.bos.crm.domain" />
 
         <!-- 指定持久层提供者为Hibernate -->
         <property name="persistenceProvider">
@@ -64,17 +64,20 @@
 
     <!-- 组件扫描 @Server @Controller @Repository -->
     <context:component-scan
-            base-package="com.itheima.bos.service, com.itheima.bos.web"/>
+            base-package="com.itheima.bos.crm.service"/>
 
     <!-- 事务注解支持 -->
     <tx:annotation-driven transaction-manager="transactionManager" />
 
      <!--整合 spring data jpa-->
-    <jpa:repositories base-package="com.itheima.bos.dao" />
+    <jpa:repositories base-package="com.itheima.bos.crm.dao" />
 
-    <!-- 配置cxf客户端 -->
-    <jaxws:client id="crmClient" address="http://localhost:8082/webservice/customer"
-                  serviceClass="com.itheima.bos.crm.service.CustomerService"/>
+    <jaxws:server id="customerService"
+                  address="/customer">
+        <jaxws:serviceBean>
+            <ref bean="customerServiceImpl"/>
+        </jaxws:serviceBean>
+    </jaxws:server>
 
 
 </beans>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -18,26 +19,26 @@
 			function doAdd(){
 				$('#addWindow').window("open");
 			}
-			
+
 			function doEdit(){
 				alert("修改...");
 			}
-			
+
 			function doDelete(){
 				alert("删除...");
 			}
-			
+
 			function doSearch(){
 				$('#searchWindow').window("open");
 			}
-			
+
 			function doAssociations(){
 				$('#customerWindow').window('open');
 			}
-			
+
 			//工具栏
 			var toolbar = [ {
-				id : 'button-search',	
+				id : 'button-search',
 				text : '查询',
 				iconCls : 'icon-search',
 				handler : doSearch
@@ -47,7 +48,7 @@
 				iconCls : 'icon-add',
 				handler : doAdd
 			}, {
-				id : 'button-edit',	
+				id : 'button-edit',
 				text : '修改',
 				iconCls : 'icon-edit',
 				handler : doEdit
@@ -66,11 +67,11 @@
 				text : '关联快递员',
 				iconCls : 'icon-sum',
 				handler : function(){
-					// 判断是否已经选中了一个定区，弹出关联快递员窗口 
+					// 判断是否已经选中了一个定区，弹出关联快递员窗口
 					var rows = $("#grid").datagrid('getSelections');
 					if(rows.length==1){
 						// 只选择了一个定区
-						// 弹出定区关联快递员 窗口 
+						// 弹出定区关联快递员 窗口
 						$("#courierWindow").window('open');
 					}else{
 						// 没有选中定区，或者选择 了多个定区
@@ -111,11 +112,11 @@
 				width : 120,
 				align : 'center'
 			} ] ];
-			
+
 			$(function(){
 				// 先将body隐藏，再显示，不会出现页面刷新效果
 				$("body").css({visibility:"visible"});
-				
+
 				// 定区数据表格
 				$('#grid').datagrid( {
 					iconCls : 'icon-forward',
@@ -126,12 +127,12 @@
 					pageList: [30,50,100],
 					pagination : true,
 					toolbar : toolbar,
-					url : "../../fixedAreaAction_pageQuery.action",
+					url : "../../fixedArea/pageQuery.action",
 					idField : 'id',
 					columns : columns,
 					onDblClickRow : doDblClickRow
 				});
-				
+
 				// 添加、修改定区
 				$('#addWindow').window({
 			        title: '添加修改定区',
@@ -142,7 +143,7 @@
 			        height: 400,
 			        resizable:false
 			    });
-				
+
 				// 查询定区
 				$('#searchWindow').window({
 			        title: '查询定区',
@@ -156,9 +157,17 @@
 				$("#btn").click(function(){
 					alert("执行查询...");
 				});
-				
+
+				$("#save").click(function(){
+				    if($("#fixedAreaForm").form("validate")){
+				        $("#fixedAreaForm").submit();
+                    }else{
+				        $.messager("提示信息","请填写全部信息","warning");
+                    }
+                })
+
 			});
-		
+
 			function doDblClickRow(){
 				alert("双击表格数据...");
 				$('#association_subarea').datagrid( {
@@ -255,7 +264,7 @@
 						align : 'center'
 					}]]
 				});
-				
+
 			}
 		</script>
 	</head>
@@ -280,12 +289,11 @@
 			<div style="height:31px;overflow:hidden;" split="false" border="false">
 				<div class="datagrid-toolbar">
 					<a id="save" icon="icon-save" href="#" class="easyui-linkbutton" plain="true">保存</a>
-					</script>
 				</div>
 			</div>
 
 			<div style="overflow:auto;padding:5px;" border="false">
-				<form id="fixedAreaForm" method="post" action="../../fixedAreaAction_save.action">
+				<form id="fixedAreaForm" method="post" action="../../fixedArea/save.action">
 					<table class="table-edit" width="80%" align="center">
 						<tr class="title">
 							<td colspan="2">定区信息</td>
@@ -382,17 +390,17 @@
 				</form>
 			</div>
 		</div>
-		
+
 		<!-- 关联快递员窗口 -->
 		<div class="easyui-window" title="关联快递员窗口" id="courierWindow" modal="true"
 			collapsible="false" closed="true" minimizable="false" maximizable="false" style="top:20px;left:200px;width: 700px;height: 300px;">
 			<div style="overflow:auto;padding:5px;" border="false">
-				<form id="courierForm" 
+				<form id="courierForm"
 					action="../../fixedAreaAction_associationCourierToFixedArea.action" method="post">
 					<table class="table-edit" width="80%" align="center">
 						<tr class="title">
 							<td colspan="2">关联快递员</td>
-						</tr> 
+						</tr>
 						<tr>
 							<td>选择快递员</td>
 							<td>
