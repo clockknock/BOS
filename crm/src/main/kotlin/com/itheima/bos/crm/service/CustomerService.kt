@@ -9,4 +9,6 @@ import javax.jws.WebService
 @WebService
 interface  CustomerService{
     fun findAll(): List<Customer>
+    fun findCustomersHasAssociation(id: String): List<Customer>
+    fun findCustomersNotAssociation(): List<Customer>
 }

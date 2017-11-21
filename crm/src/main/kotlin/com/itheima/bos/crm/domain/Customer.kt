@@ -57,4 +57,7 @@ class Customer() {
 
     }
 
+    override fun toString(): String =
+            "Customer(id=$id, username=$username, password=$password, type=$type, birthday=$birthday, sex=$sex, telephone=$telephone, company=$company, department=$department, position=$position, address=$address, mobilePhone=$mobilePhone, email=$email, fixedAreaId=$fixedAreaId)"
+
 }

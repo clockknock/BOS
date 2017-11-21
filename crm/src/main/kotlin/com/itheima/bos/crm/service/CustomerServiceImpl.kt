@@ -13,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional
 @Service("customerServiceImpl")
 @Transactional
 open class CustomerServiceImpl : CustomerService {
+    override fun findCustomersHasAssociation(id: String): List<Customer> = dao.findByFixedAreaId(id)
+
+    override fun findCustomersNotAssociation(): List<Customer> = dao.findByFixedAreaIdIsNull()
 
     override fun findAll(): List<Customer> = dao.findAll()
 

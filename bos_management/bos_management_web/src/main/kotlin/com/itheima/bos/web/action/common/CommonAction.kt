@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONArray
 import com.google.gson.ExclusionStrategy
 import com.google.gson.FieldAttributes
 import com.google.gson.GsonBuilder
-import com.itheima.bos.domain.base.Area
+import com.itheima.bos.crm.service.Customer
 import com.itheima.bos.domain.base.PageData
 import com.opensymphony.xwork2.ActionSupport
 import com.opensymphony.xwork2.ModelDriven
@@ -73,9 +73,12 @@ open class CommonAction<T : Any> : ActionSupport(), ModelDriven<T>, ServletRespo
         response.writer.append(json)
     }
 
-    open fun list2Json(list: List<Area>) {
-
-        val toJson = JSONArray(list).toJSONString()
+    open fun list2Json(list: List<Any>?) {
+        var toJson: String = if(list!=null && list.isNotEmpty()){
+            JSONArray(list).toJSONString()
+        }else{
+            "{}"
+        }
         response.writer.append(toJson)
     }
 }
