@@ -133,9 +133,9 @@ public class Stock implements java.io.Serializable {
 
 ## IDEA的问题
 
-创建pom模块的时候没有选web项目,main文件夹下没有webapp,复制了一份web.xml过来,我明明写了servlet节点和对应的servlet-mapping节点,却被编译器报错:说我servlet没有对应的mapping节点,这是因为IDEA没有将这个web.xml识别为该项目的配置文件,在ProjectStructure添加web.xml作为配置文件即可
+创建模块的时候没有选web项目,main文件夹下没有webapp,复制了一份web.xml过来,我明明写了servlet节点和对应的servlet-mapping节点,却被编译器报错:说我servlet没有对应的mapping节点,这是因为IDEA没有将这个web.xml识别为该项目的配置文件,在ProjectStructure添加web.xml作为配置文件即可
 
-![servletneedmapping](mdsrc\servletneedmapping.png)
+![servletneedmapping](/mdsrc/servletneedmapping.png)
 
 
 
@@ -143,5 +143,5 @@ public class Stock implements java.io.Serializable {
 
 如果是在Deployment中配置的是war包,那IDEA就只能让你选择Restart Server或redeploy,如果我们选择的是war exploded,那就可以补充其服务器,快速更新classes or resources
 
-![servletneedmapping](mdsrc\updateclasses.png)
+![servletneedmapping](/mdsrc/updateclasses.png)
 
