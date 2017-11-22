@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.jpa.domain.Specification
+import org.springframework.stereotype.Controller
 import java.util.*
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
@@ -20,6 +21,7 @@ import javax.persistence.criteria.Root
 /**
  * Created by 钟未鸣 on 2017/11/8 .
  */
+@Controller
 @Namespace("/courier")
 @ParentPackage("struts-default")
 @Scope("prototype")
@@ -28,7 +30,6 @@ class CourierAction : CommonAction<Courier>() {
     fun setIds(ids: String) {
         this.ids = ids
     }
-
 
     private val SAVESUCCESS = "save_success"
     private val DELETESUCCESS = "delete_success"
@@ -58,6 +59,13 @@ class CourierAction : CommonAction<Courier>() {
         val pageQuery = service.pageQuery(spec, pageReq)
 
         page2Json(pageQuery, Regex(pattern = "fixedAreas|takeTime"))
+        return com.opensymphony.xwork2.Action.NONE
+    }
+
+    @Action("listAjax")
+    fun listAjax(): String{
+        val list: List<Courier> =service.findCouriersNotDelete()
+        list2Json(list)
         return com.opensymphony.xwork2.Action.NONE
     }
 

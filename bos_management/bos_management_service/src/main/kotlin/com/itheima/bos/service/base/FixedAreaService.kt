@@ -10,4 +10,5 @@ import org.springframework.data.domain.PageRequest
 interface FixedAreaService{
     fun save(model: FixedArea)
     fun pageQuery(pr: PageRequest): Page<FixedArea>
+    fun associationCourierToFixedArea(fixedAreaId: String, courierId: Int, takeTimeId: Int)
 }

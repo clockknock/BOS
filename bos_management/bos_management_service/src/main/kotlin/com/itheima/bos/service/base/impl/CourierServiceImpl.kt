@@ -16,20 +16,19 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 open class CourierServiceImpl : CourierService {
+    override fun findCouriersNotDelete(): List<Courier> = dao.findByDeltagIsNull()
+
     override fun pageQuery(spec: Specification<Courier>, rows: PageRequest): Page<Courier> =
             dao.findAll(spec, rows)
 
     override fun deleteBatch(ids: String) {
         val split = ids.split(",")
         for (id in split) {
-            dao.delete(id.toInt())
+            dao.invalid(id.toInt())
         }
     }
 
-    override fun pageQuery(page: Int, rows: Int): Page<Courier> {
-
-        return dao.findAll(PageRequest(page, rows))
-    }
+    override fun pageQuery(page: Int, rows: Int): Page<Courier> = dao.findAll(PageRequest(page, rows))
 
     override fun save(courier: Courier) {
         dao.save(courier)

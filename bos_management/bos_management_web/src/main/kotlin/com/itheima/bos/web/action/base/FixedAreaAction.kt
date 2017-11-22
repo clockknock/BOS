@@ -57,11 +57,11 @@ class FixedAreaAction : CommonAction<FixedArea>() {
     @Suppress("MemberVisibilityCanPrivate")
     var customerIds: List<String>? = null
 
-    @Action(value = "assignCustomers2FixedArea",results = arrayOf(Result(name = "success",
+    @Action(value = "assignCustomers2FixedArea", results = arrayOf(Result(name = "success",
             location = "/pages/base/fixed_area.html")))
     fun assignCustomers2FixedArea(): String {
         //前端bug,传不了customerLids过来,只好拼接一趟
-        val realIds= mutableListOf<Int>()
+        val realIds = mutableListOf<Int>()
 
         if (customerIds != null && customerIds!!.isNotEmpty()) {
             customerIds!!.forEach {
@@ -71,6 +71,16 @@ class FixedAreaAction : CommonAction<FixedArea>() {
             }
         }
         customerService.updateCustomers(realIds, model.id)
+        return SUCCESS
+    }
+
+    var takeTimeId: Int = 0
+    var courierId: Int = 0
+    @Action(value = "associationCourierToFixedArea", results = arrayOf(Result(name = "success",
+            location = "/pages/base/fixed_area.html")))
+    fun associationCourierToFixedArea(): String {
+        service.associationCourierToFixedArea(model.id!!,courierId,takeTimeId)
+
         return SUCCESS
     }
 

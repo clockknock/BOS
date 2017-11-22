@@ -13,4 +13,5 @@ interface CourierService {
     fun pageQuery(page: Int, rows: Int): Page<Courier>
     fun deleteBatch(ids: String)
     fun pageQuery(spec: Specification<Courier>, rows: PageRequest): Page<Courier>
+    fun findCouriersNotDelete(): List<Courier>
 }

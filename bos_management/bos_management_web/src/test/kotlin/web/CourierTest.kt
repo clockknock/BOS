@@ -18,7 +18,6 @@ import javax.persistence.criteria.Root
 import java.util.ArrayList
 
 
-
 /**
  * Created by 钟未鸣 on 2017/11/17 .
  */
@@ -28,10 +27,10 @@ open class CourierTest {
     @Autowired lateinit var service: CourierService
 
     @Test
-    fun queryWithCriteria(){
+    fun queryWithCriteria() {
 
         val standard = Standard()
-        standard.name=""
+        standard.name = ""
         val courier = Courier("", "", "集团", standard)
         val courierNum = courier.courierNum
         val company = courier.company
@@ -48,26 +47,24 @@ open class CourierTest {
                 //where company like ?
                 list.add(p1)
             }
-            if (courierNum.isNotBlank()) {
+            if (courierNum!!.isNotBlank()) {
                 //需要条件一个过滤条件，根据工号等值查询
                 val p2 = cb.like(root.get<Any>("courierNum").`as`(String::class.java),
                         courierNum)//where company like ?
                 list.add(p2)
             }
-            if (type.isNotBlank()) {
+            if (type != null) {
                 println("type is not blank")
                 //需要条件一个过滤条件，根据快递员类型等值查询
                 val p3 = cb.equal(root.get<Any>("type").`as`(String::class.java), "%$type%")//where
                 // company like ?
                 list.add(p3)
             }
-            if ( standard.name.isNotBlank()) {
-                //需要条件一个过滤条件，根据收派标准名称等值查询
-                val join = root.join<Any, Any>("standard")
-                val p4 = cb.like(join.get<String>("name").`as`(String::class.java), standard.name)
-                //where company like ?
-                list.add(p4)
-            }
+            //需要条件一个过滤条件，根据收派标准名称等值查询
+            val join = root.join<Any, Any>("standard")
+            val p4 = cb.like(join.get<String>("name").`as`(String::class.java), standard.name)
+            //where company like ?
+            list.add(p4)
 
             if (list.size == 0) {
                 //没有过滤条件

@@ -1,5 +1,5 @@
 # BOS
-基于itheimaSSH阶段物流项目
+基于itheimaSSH阶段物流管理项目
 
 
 ## 语言类问题

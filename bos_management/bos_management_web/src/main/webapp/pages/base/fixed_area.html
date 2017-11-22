@@ -40,19 +40,19 @@
                 $('#customerWindow').window('open');
                 $("#associationSelect").empty();
                 $("#noassociationSelect").empty();
-                $.post("../../fixedArea/findCustomersNotAssociation.action",function(data) {
-                    $.each(data,function(i,n){
-                        var nameAndPhone=n.id+"#"+n.username+"["+n.telephone+"]";
-                        $("#noassociationSelect").append("<option value:\""+n.id+"\">"+nameAndPhone+"</option>");
+                $.post("../../fixedArea/findCustomersNotAssociation.action", function (data) {
+                    $.each(data, function (i, n) {
+                        var nameAndPhone = n.id + "#" + n.username + "[" + n.telephone + "]";
+                        $("#noassociationSelect").append("<option value:\"" + n.id + "\">" + nameAndPhone + "</option>");
                     })
 
-                    },"json");
+                }, "json");
                 $.post("../../fixedArea/findCustomersHasAssociation.action", {id: rows[0].id}, function (data) {
-                    $.each(data,function(i,n){
-                        var nameAndPhone=n.id+"#"+n.username+"["+n.telephone+"]";
-                        $("#associationSelect").append("<option value:'"+n.id+"'>"+nameAndPhone+"</option>");
+                    $.each(data, function (i, n) {
+                        var nameAndPhone = n.id + "#" + n.username + "[" + n.telephone + "]";
+                        $("#associationSelect").append("<option value:'" + n.id + "'>" + nameAndPhone + "</option>");
                     })
-                },"json");
+                }, "json");
 
             } else {
                 // 没有选中定区，或者选择 了多个定区
@@ -190,20 +190,18 @@
                 }
             })
 
-            $("#toRight").click(function(){
+            $("#toRight").click(function () {
                 console.log("toRight");
                 $("#associationSelect").append($("#noassociationSelect option:selected"));
             })
 
-            $("#toLeft").click(function(){
+            $("#toLeft").click(function () {
                 console.log("toRight");
                 $("#noassociationSelect").append($("#associationSelect option:selected"));
             })
 
-            $("#associationBtn").click(function(){
-                $("option").prop("selected",true);
-                var sValue = $("#associationSelect").val();
-                console.log($("#associationSelect"));
+            $("#associationBtn").click(function () {
+                $("option").prop("selected", true);
                 $("#customerForm").submit();
             })
 
@@ -423,7 +421,8 @@
                 <tr>
                     <td>
                         <input type="hidden" name="id" id="customerFixedAreaId"/>
-                        <select id="noassociationSelect" multiple="multiple" size="10"></select>
+                        <select id="noassociationSelect" style="width: 100%" multiple="multiple"
+                                size="10"></select>
                     </td>
                     <td>
                         <input type="button" value="》》" id="toRight">
@@ -431,7 +430,8 @@
                         <input type="button" value="《《" id="toLeft">
                     </td>
                     <td>
-                        <select id="associationSelect" name="customerIds" multiple="multiple"
+                        <select id="associationSelect" style="width: 100%" name="customerIds"
+                                multiple="multiple"
                                 size="10"></select>
                     </td>
                 </tr>
@@ -450,7 +450,7 @@
      style="top:20px;left:200px;width: 700px;height: 300px;">
     <div style="overflow:auto;padding:5px;" border="false">
         <form id="courierForm"
-              action="../../fixedAreaAction_associationCourierToFixedArea.action" method="post">
+              action="../../fixedArea/associationCourierToFixedArea.action" method="post">
             <table class="table-edit" width="80%" align="center">
                 <tr class="title">
                     <td colspan="2">关联快递员</td>
@@ -460,26 +460,38 @@
                     <td>
                         <!-- 存放定区编号 -->
                         <input type="hidden" name="id" id="courierFixedAreaId"/>
-                        <input data-options="ditable:false, url:'../../courierAction_listajax.action',valueField:'id',textField:'name'"
-                               type="text" name="courierId" class="easyui-combobox"
-                               required="true"/>
+                        <input
+                                data-options="editable:false, url:'../../courier/listAjax.action',valueField:'id',textField:'name'"
+                                type="text" name="courierId" class="easyui-combobox"
+                                required="true"/>
                     </td>
                 </tr>
                 <tr>
                     <td>选择收派时间</td>
                     <td>
-                        <select required="true" class="easyui-combobox" name="takeTimeId">
-                            <option>请选择</option>
-                            <option value="1">北京早班</option>
-                            <option value="2">北京晚班</option>
-                        </select>
-                        <!-- <input type="text" name="takeTimeId" class="easyui-combobox" required="true" /> -->
+                        <input
+                                data-options="editable:false, url:'../../takeTime/listAjax.action',valueField:'id',textField:'name'"
+                                type="text" name="takeTimeId" class="easyui-combobox"
+                                required="true">
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
                         <a id="associationCourierBtn" href="#" class="easyui-linkbutton"
                            data-options="iconCls:'icon-save'">关联快递员</a>
+                        <script type="text/javascript">
+                            $(function(){
+                                $("#associationCourierBtn").click(function(){
+                                    if($("#courierForm").form("validate")){
+                                        var rows = $("#grid").datagrid('getSelections');
+                                        $("#courierFixedAreaId").val(rows[0].id);
+                                        $("#courierForm").submit();
+                                    }else{
+                                        $.messager.alert("警告", "请选择快递员与收派时间!", "warning");
+                                    }
+                                })
+                            })
+                        </script>
                     </td>
                 </tr>
             </table>

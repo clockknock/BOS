@@ -45,9 +45,9 @@ open class SpringDataJPATest {
             val standard = Standard()
             standard.name="标准"+x
             standard.minLength=Random().nextInt(100)
-            standard.maxLength=standard.minLength+Random().nextInt(100)
+            standard.maxLength= standard.minLength!! +Random().nextInt(100)
             standard.minWeight=Random().nextInt(100)
-            standard.maxWeight=standard.minLength+Random().nextInt(100)
+            standard.maxWeight= standard.minLength!! +Random().nextInt(100)
             standard.operatingTime=Date()
             standard.operator="张"+x
 
