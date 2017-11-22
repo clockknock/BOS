@@ -11,4 +11,5 @@ interface  CustomerService{
     fun findAll(): List<Customer>
     fun findCustomersHasAssociation(id: String): List<Customer>
     fun findCustomersNotAssociation(): List<Customer>
+    fun updateCustomers(ids: List<Int>,fixedAreaId: String)
 }

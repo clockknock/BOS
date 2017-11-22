@@ -36,6 +36,20 @@ public interface CustomerService {
 
     /**
      * 
+     * @param arg1
+     * @param arg0
+     */
+    @WebMethod
+    @RequestWrapper(localName = "updateCustomers", targetNamespace = "http://service.crm.bos.itheima.com/", className = "com.itheima.bos.crm.service.UpdateCustomers")
+    @ResponseWrapper(localName = "updateCustomersResponse", targetNamespace = "http://service.crm.bos.itheima.com/", className = "com.itheima.bos.crm.service.UpdateCustomersResponse")
+    public void updateCustomers(
+            @WebParam(name = "arg0", targetNamespace = "")
+                    List<Integer> arg0,
+            @WebParam(name = "arg1", targetNamespace = "")
+                    String arg1);
+
+    /**
+     * 
      * @param arg0
      * @return
      *     returns java.util.List<com.itheima.bos.crm.service.Customer>

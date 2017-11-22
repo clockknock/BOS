@@ -1,4 +1,4 @@
-package com.itheima.bos.web.action
+package com.itheima.bos.web.action.base
 
 import com.itheima.bos.crm.service.CustomerService
 import com.itheima.bos.domain.base.FixedArea
@@ -54,15 +54,27 @@ class FixedAreaAction : CommonAction<FixedArea>() {
         return NONE
     }
 
-    var customerIds: List<Int>? = null
+    @Suppress("MemberVisibilityCanPrivate")
+    var customerIds: List<String>? = null
 
-    @Action(value = "assignCustomers2FixedArea")
+    @Action(value = "assignCustomers2FixedArea",results = arrayOf(Result(name = "success",
+            location = "/pages/base/fixed_area.html")))
     fun assignCustomers2FixedArea(): String {
-        println(customerIds)
-        return NONE
+        //前端bug,传不了customerLids过来,只好拼接一趟
+        val realIds= mutableListOf<Int>()
+
+        if (customerIds != null && customerIds!!.isNotEmpty()) {
+            customerIds!!.forEach {
+                val substring = it.substring(0, it.indexOf("#"))
+                println(substring)
+                realIds.add(substring.toInt())
+            }
+        }
+        customerService.updateCustomers(realIds, model.id)
+        return SUCCESS
     }
 
-    @Suppress("SpringKotlinAutowiring")
+    @Suppress("SpringKotlinAutowiring")//IDEA识别不了applicationContext.xml中的Service扫描
     @Autowired lateinit var customerService: CustomerService
     @Autowired lateinit var service: FixedAreaService
 }

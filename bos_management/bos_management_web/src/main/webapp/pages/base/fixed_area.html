@@ -35,21 +35,22 @@
         function doAssociations() {
             var rows = $("#grid").datagrid('getSelections');
             if (rows.length == 1) {
+                $("#customerFixedAreaId").val(rows[0].id);
                 // 只选择了一个定区
                 $('#customerWindow').window('open');
                 $("#associationSelect").empty();
                 $("#noassociationSelect").empty();
                 $.post("../../fixedArea/findCustomersNotAssociation.action",function(data) {
                     $.each(data,function(i,n){
-                        var nameAndPhone=n.username+"["+n.telephone+"]";
+                        var nameAndPhone=n.id+"#"+n.username+"["+n.telephone+"]";
                         $("#noassociationSelect").append("<option value:\""+n.id+"\">"+nameAndPhone+"</option>");
                     })
 
                     },"json");
                 $.post("../../fixedArea/findCustomersHasAssociation.action", {id: rows[0].id}, function (data) {
                     $.each(data,function(i,n){
-                        var nameAndPhone=n.username+"["+n.telephone+"]";
-                        $("#associationSelect").append("<option value:\""+n.id+"\">"+nameAndPhone+"</option>");
+                        var nameAndPhone=n.id+"#"+n.username+"["+n.telephone+"]";
+                        $("#associationSelect").append("<option value:'"+n.id+"'>"+nameAndPhone+"</option>");
                     })
                 },"json");
 
@@ -200,6 +201,9 @@
             })
 
             $("#associationBtn").click(function(){
+                $("option").prop("selected",true);
+                var sValue = $("#associationSelect").val();
+                console.log($("#associationSelect"));
                 $("#customerForm").submit();
             })
 

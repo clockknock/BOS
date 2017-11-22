@@ -13,6 +13,13 @@ import org.springframework.transaction.annotation.Transactional
 @Service("customerServiceImpl")
 @Transactional
 open class CustomerServiceImpl : CustomerService {
+    override fun updateCustomers(ids: List<Int>, fixedAreaId: String) {
+        dao.setFixedAreaIdIsNull(fixedAreaId)
+        for (id in ids) {
+            dao.assignCustomers2FixedArea(fixedAreaId,id)
+        }
+    }
+
     override fun findCustomersHasAssociation(id: String): List<Customer> = dao.findByFixedAreaId(id)
 
     override fun findCustomersNotAssociation(): List<Customer> = dao.findByFixedAreaIdIsNull()
