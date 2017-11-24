@@ -140,17 +140,17 @@ public class Stock implements java.io.Serializable {
 
 
 
-![servletneedmapping](/mdsrc/mvnwebmodule01.png)
+![mvnwebmodule01](/mdsrc/mvnwebmodule01.png)
 
 上面这一步选好后先一直点下一步直到下图:
 
 Content root不要用默认的,如果是默认的他会是直接放在父模块中,也就是会将子模块的pom.xml和父模块的pom.xml放一起,会创建模块失败,我们得手动的在Content root后追加"\你的模块名"
 
-![servletneedmapping](/mdsrc/mvnwebmodule02.png)
+![mvnwebmodule02](/mdsrc/mvnwebmodule02.png)
 
 接着就有webapp文件夹及默认的web.xml了
 
-![servletneedmapping](/mdsrc/mvnwebmodule03.png)
+![mvnwebmodule03](/mdsrc/mvnwebmodule03.png)
 
 
 
@@ -160,7 +160,7 @@ Content root不要用默认的,如果是默认的他会是直接放在父模块�
 
 
 
-![servletneedmapping](/mdsrc/tomcatrunconfiguration01.png)
+![tomcatrunconfiguration01](/mdsrc/tomcatrunconfiguration01.png)
 
 
 
@@ -170,7 +170,7 @@ Content root不要用默认的,如果是默认的他会是直接放在父模块�
 
 最重要的第三个窗口,我们需要选择该tomcat run configuration需要发布个啥
 
-![servletneedmapping](/mdsrc/tomcatrunconfiguration02.png)
+![tomcatrunconfiguration02](/mdsrc/tomcatrunconfiguration02.png)
 
 
 
@@ -178,7 +178,7 @@ Content root不要用默认的,如果是默认的他会是直接放在父模块�
 
 
 
-![servletneedmapping](/mdsrc/tomcatrunconfiguration03.png)
+![tomcatrunconfiguration03](/mdsrc/tomcatrunconfiguration03.png)
 
 
 
@@ -194,5 +194,5 @@ Content root不要用默认的,如果是默认的他会是直接放在父模块�
 
 如果是在Deployment中配置的是war包,那IDEA就只能让你选择Restart Server或redeploy,如果我们选择的是war exploded,那就可以补充其服务器,快速更新classes or resources
 
-![servletneedmapping](/mdsrc/updateclasses.png)
+![updateclasses](/mdsrc/updateclasses.png)
 
