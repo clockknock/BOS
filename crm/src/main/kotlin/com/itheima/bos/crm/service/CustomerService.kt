@@ -7,10 +7,12 @@ import javax.jws.WebService
  * Created by 钟未鸣 on 2017/11/21 .
  */
 @WebService
-interface  CustomerService{
+interface CustomerService {
     fun findAll(): List<Customer>
     fun findCustomersHasAssociation(id: String): List<Customer>
     fun findCustomersNotAssociation(): List<Customer>
-    fun updateCustomers(ids: List<Int>,fixedAreaId: String)
+    fun updateCustomers(ids: List<Int>, fixedAreaId: String)
     fun save(customer: Customer)
+    fun findByTelephone(telephone: String): Customer
+    fun login(telephone: String,password: String):Customer
 }

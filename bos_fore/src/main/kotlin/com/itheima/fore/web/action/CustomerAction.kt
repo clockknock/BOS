@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse
 @ParentPackage("struts-default")
 @Namespace("/customer")
 @Scope("prototype")
- class CustomerAction : ActionSupport(), ServletResponseAware, ModelDriven<Customer> {
+class CustomerAction : ActionSupport(), ServletResponseAware, ModelDriven<Customer> {
     private val model = Customer()
     override fun getModel() = model
 
@@ -61,6 +61,14 @@ import javax.servlet.http.HttpServletResponse
         } else {
             return ERROR
         }
+    }
+
+    @Action(value = "login", results = arrayOf(Result(name = "success", location = "/index.html",
+            type = "redirect")))
+    fun login(): String {
+        service.login(model.telephone, model.password)
+
+        return SUCCESS
     }
 
     @Suppress("SpringKotlinAutowiring")

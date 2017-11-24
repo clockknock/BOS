@@ -19,4 +19,7 @@ interface CustomerDao : JpaRepository<Customer,Int> {
     @Query("update Customer set fixedAreaId = ? where id =?")
     fun assignCustomers2FixedArea(fixedAreaId: String,id: Int)
 
+    fun findByTelephone(telephone: String): Customer
+    fun findByTelephoneAndPassword(telephone: String, password: String): Customer
+
 }
