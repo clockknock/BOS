@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/bos_fore/bos_fore.iml" filepath="$PROJECT_DIR$/bos_fore/bos_fore.iml" />
       <module fileurl="file://$PROJECT_DIR$/bos_management/bos_management.iml" filepath="$PROJECT_DIR$/bos_management/bos_management.iml" />
       <module fileurl="file://$PROJECT_DIR$/bos_management/bos_management_dao/bos_management_dao.iml" filepath="$PROJECT_DIR$/bos_management/bos_management_dao/bos_management_dao.iml" />
       <module fileurl="file://$PROJECT_DIR$/bos_management/bos_management_domain/bos_management_domain.iml" filepath="$PROJECT_DIR$/bos_management/bos_management_domain/bos_management_domain.iml" />

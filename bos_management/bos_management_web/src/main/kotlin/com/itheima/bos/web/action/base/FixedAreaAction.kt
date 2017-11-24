@@ -84,7 +84,7 @@ class FixedAreaAction : CommonAction<FixedArea>() {
         return SUCCESS
     }
 
-    @Suppress("SpringKotlinAutowiring")//IDEA识别不了applicationContext.xml中的Service扫描
+    @Suppress("SpringKotlinAutowiring")//CustomerService放在依赖项目中,spring扫描不到
     @Autowired lateinit var customerService: CustomerService
     @Autowired lateinit var service: FixedAreaService
 }

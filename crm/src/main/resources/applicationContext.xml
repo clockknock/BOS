@@ -19,10 +19,10 @@
 
     <!-- 连接池 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
-        <property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.73.100:1521:ORCL" />
-        <property name="user" value="boscrm" />
-        <property name="password" value="itheima" />
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.73.100:1521:ORCL"/>
+        <property name="user" value="boscrm"/>
+        <property name="password" value="itheima"/>
     </bean>
     <!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
@@ -34,32 +34,32 @@
     <!-- spring整合JPA -->
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSource"/>
         <!-- 指定扫描的包，存放实体类 -->
         <property name="packagesToScan"
-                  value="com.itheima.bos.crm.domain" />
+                  value="com.itheima.bos.crm.domain"/>
 
         <!-- 指定持久层提供者为Hibernate -->
         <property name="persistenceProvider">
-            <bean class="org.hibernate.ejb.HibernatePersistence" />
+            <bean class="org.hibernate.ejb.HibernatePersistence"/>
         </property>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
                 <!-- 自动建表 -->
-                <property name="generateDdl" value="true" />
-                <property name="database" value="ORACLE" />
-                <property name="databasePlatform" value="org.hibernate.dialect.Oracle10gDialect" />
-                <property name="showSql" value="true" />
+                <property name="generateDdl" value="true"/>
+                <property name="database" value="ORACLE"/>
+                <property name="databasePlatform" value="org.hibernate.dialect.Oracle10gDialect"/>
+                <property name="showSql" value="true"/>
             </bean>
         </property>
         <property name="jpaDialect">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
         </property>
     </bean>
 
     <!-- 事务管理器 -->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory" />
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
     <!-- 组件扫描 @Server @Controller @Repository -->
@@ -67,13 +67,12 @@
             base-package="com.itheima.bos.crm.service"/>
 
     <!-- 事务注解支持 -->
-    <tx:annotation-driven transaction-manager="transactionManager" />
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
-     <!--整合 spring data jpa-->
-    <jpa:repositories base-package="com.itheima.bos.crm.dao" />
+    <!--整合 spring data jpa-->
+    <jpa:repositories base-package="com.itheima.bos.crm.dao"/>
 
-    <jaxws:server id="customerService"
-                  address="/customer">
+    <jaxws:server id="customerService" address="/customer">
         <jaxws:serviceBean>
             <ref bean="customerServiceImpl"/>
         </jaxws:serviceBean>

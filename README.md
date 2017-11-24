@@ -68,7 +68,7 @@ open class CommonAction<T : Any> : ActionSupport(), ModelDriven<T>, ServletRespo
 
 
 
-## 项目遇到的问题
+## 项目知识点遇到的问题
 
 
 
@@ -76,7 +76,7 @@ SubArea没有name字段,如何让生成的json带有name字段?
 
 ```
 1.如果是使用json-lib的话,我们给SubArea添加一个getName方法,并返回province+city+district即可;
-2.如果是使用gson,首先我们要知道gson不是用getXXX方法获取值来生成json,所以就算写getXXX方法也没法生成相应json,但找了好久没找到怎么生成自定义字段
+2.如果是使用gson,首先我们要知道gson不是用getXXX方法获取值来生成json,所以就算写getXXX方法也没法生成相应json,但找了好久没找到怎么生成自定义字段,换fastJson了
 3.
 如果用fastJson,也是添加一个getName方法并返回province+city+district即可;
 用fastJson的时候,序列化json的时候想忽略字段可以添加一个注解:@JSONField(serialize = false)
@@ -87,7 +87,8 @@ SubArea没有name字段,如何让生成的json带有name字段?
 spring报错:not a managed type class spring;
 
 ```xml
-<!-- 可能是配置jpa扫描的包没有把你新建的实体类扫描到,在property-name="packagesToScan"指定一下你的实体类位置 -->
+<!-- 可能是配置jpa扫描的包没有把你新建的实体类扫描到,
+在property-name="packagesToScan"指定一下你的实体类位置 -->
 
 <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -132,6 +133,56 @@ public class Stock implements java.io.Serializable {
 
 
 ## IDEA的问题
+
+##### 新建web模块
+
+以前课程上在Eclipse新建web模块的时候没有选择Create from archetype,在IDEA上我们创建web项目的时候最好从archetype创建,我们选择maven webapp
+
+
+
+![servletneedmapping](/mdsrc/mvnwebmodule01.png)
+
+上面这一步选好后先一直点下一步直到下图:
+
+Content root不要用默认的,如果是默认的他会是直接放在父模块中,也就是会将子模块的pom.xml和父模块的pom.xml放一起,会创建模块失败,我们得手动的在Content root后追加"\你的模块名"
+
+![servletneedmapping](/mdsrc/mvnwebmodule02.png)
+
+接着就有webapp文件夹及默认的web.xml了
+
+![servletneedmapping](/mdsrc/mvnwebmodule03.png)
+
+
+
+##### web项目的启动配置(tomcat)
+
+在IDEA中如果想将web项目跑起来,需要配置一下运行设置,打开Run/Debug Configurations窗口,点击左上角的加号→Tomcat Server →Local新建tomcat configuration
+
+
+
+![servletneedmapping](/mdsrc/tomcatrunconfiguration01.png)
+
+
+
+如果你的IDEA之前指定过tomcat,那第一个红圈里的tomcat就默认选中不用自己设置;
+
+第二个红框里的端口号可以看自己的需求设置,如果只是单独一个项目就不用改端口号了;
+
+最重要的第三个窗口,我们需要选择该tomcat run configuration需要发布个啥
+
+![servletneedmapping](/mdsrc/tomcatrunconfiguration02.png)
+
+
+
+配置好后的可见下图,其实也就是点个加号把想发布的war包添加进来而已
+
+
+
+![servletneedmapping](/mdsrc/tomcatrunconfiguration03.png)
+
+
+
+##### servlet和servlet-mapping节点报错
 
 创建模块的时候没有选web项目,main文件夹下没有webapp,复制了一份web.xml过来,我明明写了servlet节点和对应的servlet-mapping节点,却被编译器报错:说我servlet没有对应的mapping节点,这是因为IDEA没有将这个web.xml识别为该项目的配置文件,在ProjectStructure添加web.xml作为配置文件即可
 

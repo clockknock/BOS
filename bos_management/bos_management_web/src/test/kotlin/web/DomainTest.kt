@@ -1,6 +1,9 @@
 package web
 
 import com.itheima.bos.domain.base.Area
+import org.apache.commons.lang.math.RandomUtils
+import org.apache.commons.lang3.RandomStringUtils
+import org.apache.shiro.crypto.RandomNumberGenerator
 import org.junit.Test
 
 /**
@@ -13,5 +16,7 @@ class DomainTest{
         area.province="gz"
         area.city="sz"
         area.district="ns"
+        val randomNumeric = RandomStringUtils.randomNumeric(4)
+        println(randomNumeric)
     }
 }

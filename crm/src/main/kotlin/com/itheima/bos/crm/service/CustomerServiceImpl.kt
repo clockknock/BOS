@@ -13,6 +13,10 @@ import org.springframework.transaction.annotation.Transactional
 @Service("customerServiceImpl")
 @Transactional
 open class CustomerServiceImpl : CustomerService {
+    override fun save(customer: Customer) {
+        dao.save(customer)
+    }
+
     override fun updateCustomers(ids: List<Int>, fixedAreaId: String) {
         dao.setFixedAreaIdIsNull(fixedAreaId)
         for (id in ids) {

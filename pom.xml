@@ -10,6 +10,7 @@
     <modules>
         <module>bos_management</module>
         <module>crm</module>
+        <module>bos_fore</module>
     </modules>
 
     <properties>
