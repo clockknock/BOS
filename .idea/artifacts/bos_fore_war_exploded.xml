@@ -10,6 +10,12 @@
           <element id="archive" name="bos_management_utils-1.0-SNAPSHOT.jar">
             <element id="module-output" name="bos_management_utils" />
           </element>
+          <element id="archive" name="bos_management_domain-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="bos_management_domain" />
+          </element>
+          <element id="library" level="project" name="Maven: org.testng:testng:6.11" />
+          <element id="library" level="project" name="Maven: com.beust:jcommander:1.64" />
+          <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.17" />
           <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-jre8:1.1.60" />
           <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.1.60" />
           <element id="library" level="project" name="Maven: org.jetbrains:annotations:13.0" />

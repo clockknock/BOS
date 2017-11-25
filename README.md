@@ -2,13 +2,82 @@
 基于itheimaSSH阶段物流管理项目
 
 
+## IDEA的问题
+
+### 新建web模块
+
+以前课程上在Eclipse新建web模块的时候没有选择Create from archetype,在IDEA上我们创建web项目的时候最好从archetype创建,我们选择maven webapp
+
+
+
+![mvnwebmodule01](/mdsrc/mvnwebmodule01.png)
+
+上面这一步选好后先一直点下一步直到下图:
+
+Content root不要用默认的,如果是默认的他会是直接放在父模块中,也就是会将子模块的pom.xml和父模块的pom.xml放一起,会创建模块失败,我们得手动的在Content root后追加"\你的模块名"
+
+![mvnwebmodule02](/mdsrc/mvnwebmodule02.png)
+
+接着就有webapp文件夹及默认的web.xml了
+
+![mvnwebmodule03](/mdsrc/mvnwebmodule03.png)
+
+
+
+### web项目的启动配置(tomcat)
+
+在IDEA中如果想将web项目跑起来,需要配置一下运行设置,打开Run/Debug Configurations窗口,点击左上角的加号→Tomcat Server →Local新建tomcat configuration
+
+
+
+![tomcatrunconfiguration01](/mdsrc/tomcatrunconfiguration01.png)
+
+
+
+如果你的IDEA之前指定过tomcat,那第一个红圈里的tomcat就默认选中不用自己设置;
+
+第二个红框里的端口号可以看自己的需求设置,如果只是单独一个项目就不用改端口号了;
+
+最重要的第三个窗口,我们需要选择该tomcat run configuration需要发布个啥
+
+![tomcatrunconfiguration02](/mdsrc/tomcatrunconfiguration02.png)
+
+
+
+配置好后的可见下图,其实也就是点个加号把想发布的war包添加进来而已
+
+
+
+![tomcatrunconfiguration03](/mdsrc/tomcatrunconfiguration03.png)
+
+
+
+### servlet和servlet-mapping节点报错
+
+创建模块的时候没有选web项目,main文件夹下没有webapp,复制了一份web.xml过来,我明明写了servlet节点和对应的servlet-mapping节点,却被编译器报错:说我servlet没有对应的mapping节点,这是因为IDEA没有将这个web.xml识别为该项目的配置文件,在ProjectStructure添加web.xml作为配置文件即可
+
+![servletneedmapping](/mdsrc/servletneedmapping.png)
+
+
+
+项目跑起来想更新classes或resources时可以在run窗口点击Update application,但有时候没有更新选项,只能重新发布或者重启服务器,这比较慢,结果这个问题可以重新配置Run Configuration;
+
+如果是在Deployment中配置的是war包,那IDEA就只能让你选择Restart Server或redeploy,如果我们选择的是war exploded,那就可以补充其服务器,快速更新classes or resources
+
+![updateclasses](/mdsrc/updateclasses.png)
+
+
+
+
 ## 语言类问题
 
-1.基类中需要创建一个派生类声明的泛型对象,我们肯定知道这个泛型对象是在派生类生成时就创建,那么可以用lateinit来声明该对象,我们也可以在init{}代码块中对这个对象进行初始化,那么就可以省略声明对象时的lateinit声明,并且在声明时也可以省略掉可以为空(不过我们得在基类声明反省时让T继承Any,这时它才是不能为空的)
+### 基类的lateinit泛型对象创建
+
+基类中需要创建一个派生类声明的泛型对象,我们知道这个泛型对象是在派生类生成时肯定会创建的,那么这个对象肯定不会为null,并且可以用lateinit来声明该对象,我们初始化该对象的操作可以放在init代码块中,这时lateinit声明也可以省掉
 
 ```kotlin
 open class CommonAction<T : Any> : ActionSupport(), ModelDriven<T>, ServletResponseAware {
-  private var model: T// 声明模型对象
+      private var model: T// 声明模型对象
       override fun getModel(): T = model
 
       // 在运行期动态获得泛型的具体类型，并通过反射创建model对象
@@ -29,7 +98,9 @@ open class CommonAction<T : Any> : ActionSupport(), ModelDriven<T>, ServletRespo
 
 
 
-2.forEach{}代码块中可以用it或者this代表遍历到的对象
+### forEach和循环标记
+
+forEach{}代码块中可以用it或者this代表遍历到的对象
 
 ```kotlin
  private fun getAreas(wb: HSSFWorkbook): ArrayList<Area> {
@@ -52,17 +123,89 @@ open class CommonAction<T : Any> : ActionSupport(), ModelDriven<T>, ServletRespo
 
 
 
-3.Hibernate生成一对多的Set时报错,Kotlin的类和Java的类不能互相引用(比如SubArea和Area是多对一的关系,一个是Kotlin类一个Java类会报一个Set泛型引起的错误)
+### Hibernate一对多Java类和Kotlin类不可互相引用
+
+Hibernate生成一对多的Set时报错,Kotlin的类和Java的类不能互相引用(比如SubArea和Area是多对一的关系,一个是Kotlin类一个Java类会报一个Set泛型引起的错误)
 
 
 
-4.想让Struts中页面的参数设置到对应Action的同名field时,field可以不写setXXX方法,但该field的权限修饰符不能是private,可以是默认或open,那这时它自带的setter/getter就能被调用
+### Struts属性注入
+
+想让Struts中页面的参数设置到对应Action的同名field时,field可以不写setXXX方法,但该field的权限修饰符不能是private,可以是默认或open,那这时它自带的setter/getter就能被调用
 
 ```kotlin
-   	// 使用属性驱动接收页面提交的分页参数
-    open var page: Int = 0// 当前页码
-    open var rows: Int = 0// 每页显示的记录数
+ 	//模型驱动对象直接返回
+    private val order = Order()
+    override fun getModel(): Order = order
+
+
+    //基本数据类型好像可以不初始化,不初始化就给个lateinit
+    open var page: Int = 0
+    open var rows: Int = 0
+
+    //引用数据类型给个lateinit等Struts注入就好,不用写setter干净利索
+    lateinit var sendAreaInfo: String
+    lateinit var recAreaInfo: String
+
 ```
+
+
+
+### 一些好用的自带方法
+
+#### String的判null,判空,判空白
+
+```kotlin
+ 		val isNull:String?=null
+        println("isNull")
+        println("isNullOrEmpty:${isNull.isNullOrEmpty()}")
+        println("isNullOrBlank:${isNull.isNullOrBlank()}")
+        println("===============================================")
+
+        val isEmpty=""
+        println("isEmpty")
+        println("isNullOrEmpty:${isEmpty.isNullOrEmpty()}")
+        println("isNullOrBlank:${isEmpty.isNullOrBlank()}")
+        println("===============================================")
+
+        val isSpace=" "
+        println("isSpace")
+        println("isNullOrEmpty:${isSpace.isNullOrEmpty()}")
+        println("isNullOrBlank:${isSpace.isNullOrBlank()}")
+```
+
+上面代码输出结果:
+
+```
+
+isNull---null的对象是null,是empty并且也是blank;反正如果已经是null就返回true了
+isNullOrEmpty:true
+isNullOrBlank:true
+===============================================
+
+isEmpty---空字符串的对象会被isEmpty判断该字符长度是否为0,长度为0则返回true
+isNullOrEmpty:true
+isNullOrBlank:true
+===============================================
+isSpace---带空格的对象会先被isNullOrBlank先判断长度是否为0,如果不是为0则判断它的自否是否都是空格
+isNullOrEmpty:false
+isNullOrBlank:true
+```
+
+
+
+#### String的equals可忽略大小写
+
+```kotlin
+        val s1="abc"
+        val s2="ABc"
+        println(s1.equals(s2,true))//equals方法有重载,第二个参数代表是否要忽略大小写
+        println(s1.equals(s2,false))
+        println(s1.equals(s2))//判断字符串时IDEA推荐用==不用equals方法
+
+```
+
+
 
 
 
@@ -131,68 +274,4 @@ public class Stock implements java.io.Serializable {
 
 
 
-
-## IDEA的问题
-
-##### 新建web模块
-
-以前课程上在Eclipse新建web模块的时候没有选择Create from archetype,在IDEA上我们创建web项目的时候最好从archetype创建,我们选择maven webapp
-
-
-
-![mvnwebmodule01](/mdsrc/mvnwebmodule01.png)
-
-上面这一步选好后先一直点下一步直到下图:
-
-Content root不要用默认的,如果是默认的他会是直接放在父模块中,也就是会将子模块的pom.xml和父模块的pom.xml放一起,会创建模块失败,我们得手动的在Content root后追加"\你的模块名"
-
-![mvnwebmodule02](/mdsrc/mvnwebmodule02.png)
-
-接着就有webapp文件夹及默认的web.xml了
-
-![mvnwebmodule03](/mdsrc/mvnwebmodule03.png)
-
-
-
-##### web项目的启动配置(tomcat)
-
-在IDEA中如果想将web项目跑起来,需要配置一下运行设置,打开Run/Debug Configurations窗口,点击左上角的加号→Tomcat Server →Local新建tomcat configuration
-
-
-
-![tomcatrunconfiguration01](/mdsrc/tomcatrunconfiguration01.png)
-
-
-
-如果你的IDEA之前指定过tomcat,那第一个红圈里的tomcat就默认选中不用自己设置;
-
-第二个红框里的端口号可以看自己的需求设置,如果只是单独一个项目就不用改端口号了;
-
-最重要的第三个窗口,我们需要选择该tomcat run configuration需要发布个啥
-
-![tomcatrunconfiguration02](/mdsrc/tomcatrunconfiguration02.png)
-
-
-
-配置好后的可见下图,其实也就是点个加号把想发布的war包添加进来而已
-
-
-
-![tomcatrunconfiguration03](/mdsrc/tomcatrunconfiguration03.png)
-
-
-
-##### servlet和servlet-mapping节点报错
-
-创建模块的时候没有选web项目,main文件夹下没有webapp,复制了一份web.xml过来,我明明写了servlet节点和对应的servlet-mapping节点,却被编译器报错:说我servlet没有对应的mapping节点,这是因为IDEA没有将这个web.xml识别为该项目的配置文件,在ProjectStructure添加web.xml作为配置文件即可
-
-![servletneedmapping](/mdsrc/servletneedmapping.png)
-
-
-
-项目跑起来想更新classes或resources时可以在run窗口点击Update application,但有时候没有更新选项,只能重新发布或者重启服务器,这比较慢,结果这个问题可以重新配置Run Configuration;
-
-如果是在Deployment中配置的是war包,那IDEA就只能让你选择Restart Server或redeploy,如果我们选择的是war exploded,那就可以补充其服务器,快速更新classes or resources
-
-![updateclasses](/mdsrc/updateclasses.png)
 

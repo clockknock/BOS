@@ -15,4 +15,5 @@ interface CustomerService {
     fun save(customer: Customer)
     fun findByTelephone(telephone: String): Customer
     fun login(telephone: String,password: String):Customer
+    fun findFixedAreaIdByAddress(address: String): String
 }

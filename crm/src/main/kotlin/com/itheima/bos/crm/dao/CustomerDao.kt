@@ -22,4 +22,7 @@ interface CustomerDao : JpaRepository<Customer,Int> {
     fun findByTelephone(telephone: String): Customer
     fun findByTelephoneAndPassword(telephone: String, password: String): Customer
 
+    @Query("select fixedAreaId from Customer where address = ? ")
+    fun findFixedAreaIdByAddress(address: String): String
+
 }

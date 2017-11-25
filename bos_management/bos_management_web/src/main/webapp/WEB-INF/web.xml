@@ -22,6 +22,16 @@
         <param-value>classpath:applicationContext.xml</param-value>
     </context-param>
 
+	<!-- 配置cxf webService -->
+    <servlet>
+        <servlet-name>cxf</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>cxf</servlet-name>
+        <url-pattern>/webservice/*</url-pattern>
+    </servlet-mapping>
+
 	<!-- Struts2 -->
 	<filter>
 		<filter-name>struts</filter-name>
@@ -29,6 +39,6 @@
 	</filter>
     <filter-mapping>
         <filter-name>struts</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>*.action</url-pattern>
     </filter-mapping>
 </web-app>

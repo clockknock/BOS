@@ -34,8 +34,12 @@
     <!-- 组件扫描 @Server @Controller @Repository -->
     <context:component-scan base-package="com.itheima.fore.web"/>
 
-    <!-- 配置cxf客户端 -->
+    <!-- 配置cxf客户端 - crm端 -->
     <jaxws:client id="crmClient" address="http://localhost:8082/webservice/customer"
                   serviceClass="com.itheima.bos.crm.service.CustomerService"/>
+
+    <!-- 配置cxf客户端 - bos端 -->
+    <jaxws:client id="bosClient" address="http://localhost:8080/webservice/order"
+                  serviceClass="com.itheima.bos.service.takedelivery.impl.OrderService"/>
 
 </beans>

@@ -13,6 +13,10 @@ import org.springframework.transaction.annotation.Transactional
 @Service("customerServiceImpl")
 @Transactional
 open class CustomerServiceImpl : CustomerService {
+    override fun findFixedAreaIdByAddress(address: String): String {
+        return dao.findFixedAreaIdByAddress(address)
+    }
+
     override fun findByTelephone(telephone: String): Customer = dao.findByTelephone(telephone)
 
     override fun login(telephone: String, password: String): Customer =

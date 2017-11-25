@@ -76,5 +76,12 @@
     <jaxws:client id="crmClient" address="http://localhost:8082/webservice/customer"
                   serviceClass="com.itheima.bos.crm.service.CustomerService"/>
 
+    <!-- 配置cxf服务端,供给fore调用OrderService -->
+    <jaxws:server id="orderService" address="/order">
+        <jaxws:serviceBean >
+            <ref bean="orderServiceImpl" />
+        </jaxws:serviceBean>
+    </jaxws:server>
+
 
 </beans>

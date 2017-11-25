@@ -100,6 +100,20 @@ public interface CustomerService {
 
     /**
      * 
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "findFixedAreaIdByAddress", targetNamespace = "http://service.crm.bos.itheima.com/", className = "com.itheima.bos.crm.service.FindFixedAreaIdByAddress")
+    @ResponseWrapper(localName = "findFixedAreaIdByAddressResponse", targetNamespace = "http://service.crm.bos.itheima.com/", className = "com.itheima.bos.crm.service.FindFixedAreaIdByAddressResponse")
+    public String findFixedAreaIdByAddress(
+            @WebParam(name = "arg0", targetNamespace = "")
+                    String arg0);
+
+    /**
+     * 
      * @param arg1
      * @param arg0
      * @return
