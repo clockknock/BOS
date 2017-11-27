@@ -13,6 +13,7 @@ import org.apache.struts2.convention.annotation.Result
 import org.apache.struts2.interceptor.ServletResponseAware
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
+import org.springframework.jms.core.JmsTemplate
 import org.springframework.stereotype.Controller
 import javax.servlet.http.HttpServletResponse
 
@@ -52,14 +53,15 @@ class CustomerAction : ActionSupport(), ServletResponseAware, ModelDriven<Custom
                     Result(name = "success", location = "/signup-success.html", type = "redirect"),
                     Result(name = "error", location = "/signup-fail.html", type = "redirect")))
     fun regist(): String {
-        println(checkcode)
         val sessionValiCode = ServletActionContext.getRequest().session.getAttribute("validateCode")
-        if (sessionValiCode != null && checkcode.equals(sessionValiCode)) {
-
+        return if (sessionValiCode != null && checkcode == sessionValiCode) {
+            jmsTemplate.send("msg.sms", { session ->
+                session.createTextMessage("${model.username}你好,您的帐号注册成功,请前往邮箱进行激活")
+            })
             service.save(model)
-            return SUCCESS
+            SUCCESS
         } else {
-            return ERROR
+            ERROR
         }
     }
 
@@ -73,4 +75,6 @@ class CustomerAction : ActionSupport(), ServletResponseAware, ModelDriven<Custom
 
     @Suppress("SpringKotlinAutowiring")
     @Autowired lateinit var service: CustomerService
+    @Autowired lateinit var jmsTemplate: JmsTemplate
+
 }

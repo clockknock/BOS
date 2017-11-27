@@ -11,10 +11,11 @@
         <module>bos_management</module>
         <module>crm</module>
         <module>bos_fore</module>
+        <module>bos_sms</module>
     </modules>
 
     <properties>
-        <kotlin.version>1.1.60</kotlin.version>
+        <kotlin.version>1.1.61</kotlin.version>
         <spring.version>4.2.4.RELEASE</spring.version>
         <struts2.version>2.3.24</struts2.version>
         <hibernate.version>5.0.7.Final</hibernate.version>

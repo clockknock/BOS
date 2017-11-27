@@ -1,10 +1,10 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="crm:war exploded">
-    <output-path>$PROJECT_DIR$/crm/target/bos_crm-1.0-SNAPSHOT</output-path>
+  <artifact type="exploded-war" name="bos_sms:war exploded">
+    <output-path>$PROJECT_DIR$/bos_sms/target/bos_sms-1.0-SNAPSHOT</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="crm" />
+          <element id="module-output" name="bos_sms" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-jre8:1.1.61" />
@@ -117,9 +117,9 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/crm/target/bos_crm-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/bos_sms/target/bos_sms-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="crm/web/Web" />
+      <element id="javaee-facet-resources" facet="bos_sms/web/Web" />
     </root>
   </artifact>
 </component>

@@ -12,6 +12,7 @@
         <module name="bos_management_service" />
         <module name="bos_management_utils" />
         <module name="bos_management_web" />
+        <module name="bos_sms" />
         <module name="crm" />
       </profile>
     </annotationProcessing>
@@ -24,6 +25,7 @@
       <module name="bos_management_test" target="1.5" />
       <module name="bos_management_utils" target="1.5" />
       <module name="bos_management_web" target="1.5" />
+      <module name="bos_sms" target="1.5" />
       <module name="common_parent" target="1.5" />
       <module name="crm" target="1.5" />
     </bytecodeTargetLevel>

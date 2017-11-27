@@ -56,13 +56,13 @@ open class OrderServiceImpl : OrderService {
                 workBill.buildtime = Date()
                 workBill.courier = order.courier
                 workBill.order = order
-                workBill.pickstate =Constants.WORKBILLPICKSTATE_NEW
-                workBill.remark =order.remark
-                workBill.type =Constants.WORKBILLTYPE_NEW
+                workBill.pickstate = Constants.WORKBILLPICKSTATE_NEW
+                workBill.remark = order.remark
+                workBill.type = Constants.WORKBILLTYPE_NEW
                 workBill.smsNumber = order.sendMobile
 
                 workBillDao.save(workBill)
-                println("工单信息：请到"+order.sendAddress+"取件，客户电话："+order.sendMobile)
+                println("工单信息：请到" + order.sendAddress + "取件，客户电话：" + order.sendMobile)
 
             }
 
@@ -83,7 +83,7 @@ open class OrderServiceImpl : OrderService {
                     val iterator = couriers.iterator()
                     if (iterator.hasNext()) {
                         //查询到定区id了，可以完成自动分单
-                        order.orderType=Constants.ORDERTYPE_AUTO
+                        order.orderType = Constants.ORDERTYPE_AUTO
                         val courier = iterator.next()
                         order.courier = courier
                         //为快递员产生一个工单
@@ -98,8 +98,7 @@ open class OrderServiceImpl : OrderService {
                         workBill.type = "新"
                         workBillDao.save(workBill)//保存工单
                         //调用短信平台为快递员发送短信
-                        System.out.println("工单信息：请到" + order.sendAddress + "取件，客户电话：" + order
-                                .sendMobile)
+                        System.out.println("工单信息：请到" + order.sendAddress + "取件，客户电话：" + order.sendMobile)
                         return
                     }
                 }
@@ -108,7 +107,7 @@ open class OrderServiceImpl : OrderService {
 
 
         //5、如果没有完成自动分单，转入人工调度
-        order.orderType =Constants.ORDERTYPE_ARTIFICIAL
+        order.orderType = Constants.ORDERTYPE_ARTIFICIAL
     }
 
     @Autowired lateinit var dao: OrderDao

@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/bos_management/bos_management_service/bos_management_service.iml" filepath="$PROJECT_DIR$/bos_management/bos_management_service/bos_management_service.iml" />
       <module fileurl="file://$PROJECT_DIR$/bos_management/bos_management_utils/bos_management_utils.iml" filepath="$PROJECT_DIR$/bos_management/bos_management_utils/bos_management_utils.iml" />
       <module fileurl="file://$PROJECT_DIR$/bos_management/bos_management_web/bos_management_web.iml" filepath="$PROJECT_DIR$/bos_management/bos_management_web/bos_management_web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bos_sms/bos_sms.iml" filepath="$PROJECT_DIR$/bos_sms/bos_sms.iml" />
       <module fileurl="file://$PROJECT_DIR$/common_parent.iml" filepath="$PROJECT_DIR$/common_parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/crm/crm.iml" filepath="$PROJECT_DIR$/crm/crm.iml" />
     </modules>

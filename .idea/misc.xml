@@ -46,6 +46,7 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/bos_fore" />
     <file type="web" url="file://$PROJECT_DIR$/bos_management/bos_management_web" />
+    <file type="web" url="file://$PROJECT_DIR$/bos_sms" />
     <file type="web" url="file://$PROJECT_DIR$/crm" />
   </component>
   <component name="MavenProjectsManager">
