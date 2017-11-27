@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
 import org.springframework.jms.core.JmsTemplate
 import org.springframework.stereotype.Controller
+import javax.jms.Message
 import javax.servlet.http.HttpServletResponse
 
 /**
@@ -76,5 +77,6 @@ class CustomerAction : ActionSupport(), ServletResponseAware, ModelDriven<Custom
     @Suppress("SpringKotlinAutowiring")
     @Autowired lateinit var service: CustomerService
     @Autowired lateinit var jmsTemplate: JmsTemplate
+
 
 }

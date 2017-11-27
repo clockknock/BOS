@@ -9,6 +9,7 @@
     <SOURCES>
       <root url="jar://$USER_HOME$/.m2/repository/org/apache/activemq/activemq-all/5.2.0/activemq-all-5.2.0-sources.jar!/" />
       <root url="jar://$USER_HOME$/.m2/repository/org/apache/activemq/activemq-all/5.2.0/activemq-all-5.2.0-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.m2/repository/org/apache/activemq/activemq-all/5.2.0/activemq-all-5.2.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

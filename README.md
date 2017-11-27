@@ -68,6 +68,42 @@ Content root不要用默认的,如果是默认的他会是直接放在父模块�
 
 
 
+### 注解扫描Component
+
+IDEA和Spring一起用真的很舒服,不管是提示还是类的跳转都方便好看快捷,比如说Spring扫描Component:
+
+不给Component注解时,该类会有波浪线提示该类未被使用,可以起到提醒开发者是不是忘记配置这个类/是不是忘记使用这个类的作用
+
+![scan01](/mdsrc/componentscan01.png)
+
+并且如果我们没配置注解,Spring配置文件中会红色提示该类未找到
+
+![scan01](/mdsrc/componentscan03.png)
+
+
+
+配置了Component注解后,我们可以看到该类的波浪线提示没了,类名颜色也充实了起来,并且在class左边还多了Spring图标,说明被Spring找到
+
+![scan02](/mdsrc/componentscan02.png)
+
+
+
+
+
+### IDEA中通过Spring自动注入
+
+我们如果已经在Spring配置文件配置好了类或者通过注解扫描找到了类,我们可以通过IDEA自带的Generate生成Autowired依赖,快捷键是alt+Insert
+
+![autoWired](/mdsrc/autoWired01.png)
+
+如果是我们写的是Kotlin代码,那IDEA还能自动帮我们添加lateinit关键字,Kotlin果然是亲女儿
+
+这里有点小坑的就是,我这个模块依赖了另一个模块的WebService,注解没法扫描到,编译器会红色报错很丑,这里我就把错误压制了
+
+![autoWired](/mdsrc/autoWired02.png)
+
+
+
 
 ## 语言类问题
 
@@ -151,7 +187,19 @@ Hibernate生成一对多的Set时报错,Kotlin的类和Java的类不能互相引
 
 
 
-### 一些好用的自带方法
+### Lambda表达式
+
+还是写Android的时候匿名类多,JavaEE在基础阶段基本没啥机会碰到,好不容易碰到个就也截个图扔上来表示自己会用好了??
+
+没用lambda之前需要先new一个匿名对象,实现一下未实现的方法:
+
+![lambda01](/mdsrc/msglambda01.png)
+
+用了lambda后,魔法PIU一下写一行代码创建的对象就已经是返回值了,好像也没啥好说的,就是省代码,省的不要不要的:
+
+![lambda01](/mdsrc/msglambda02.png)
+
+### Kotlin库里一些自带的好用方法
 
 #### String的判null,判空,判空白
 
@@ -215,7 +263,7 @@ isNullOrBlank:true
 
 
 
-SubArea没有name字段,如何让生成的json带有name字段?
+SubArea没有name字段(name字段是组合了其他三个字段的自定义字段),如何让生成的json带有name字段?
 
 ```
 1.如果是使用json-lib的话,我们给SubArea添加一个getName方法,并返回province+city+district即可;
