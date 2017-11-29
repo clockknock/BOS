@@ -18,7 +18,14 @@ import javax.persistence.Table
  */
 @Entity
 @Table(name = "T_COURIER")
-class Courier {
+class Courier() {
+
+    constructor(courierNum: String, type: String, company: String, standard: Standard):this() {
+        this.courierNum = courierNum
+        this.type = type
+        this.company = company
+        this.standard = standard
+    }
 
     @Id
     @GeneratedValue
@@ -58,15 +65,6 @@ class Courier {
     @ManyToMany(mappedBy = "couriers")
     @JSONField(serialize = false)
     var fixedAreas: Set<FixedArea> = HashSet()
-
-    constructor() {}
-
-    constructor(courierNum: String, type: String, company: String, standard: Standard) {
-        this.courierNum = courierNum
-        this.type = type
-        this.company = company
-        this.standard = standard
-    }
 
     override fun toString(): String {
         return "Courier{" +

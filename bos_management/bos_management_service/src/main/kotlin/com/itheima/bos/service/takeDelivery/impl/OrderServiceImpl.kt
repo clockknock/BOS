@@ -43,23 +43,25 @@ open class OrderServiceImpl : OrderService {
         val sendAddress = order.sendAddress
         if (!sendAddress.isNullOrBlank()) {
             val fixedAreaId = customerService.findFixedAreaIdByAddress(order.sendAddress)
-            val fixedArea = fixedAreaDao.findOne(fixedAreaId)
-            val couriers = fixedArea.couriers
-            val iterator = couriers.iterator()
+            val iterator = fixedAreaDao.findOne(fixedAreaId).couriers.iterator()
             if (iterator.hasNext()) {
                 //给order分配快递员
-                order.orderType = Constants.ORDERTYPE_AUTO
-                order.courier = iterator.next()
+                order.apply {
+                    orderType =Constants.ORDERTYPE_AUTO
+                    courier = iterator.next()
+                }
                 //给快递员创建工单
-                val workBill = WorkBill()
-                workBill.attachbilltimes = 0
-                workBill.buildtime = Date()
-                workBill.courier = order.courier
-                workBill.order = order
-                workBill.pickstate = Constants.WORKBILLPICKSTATE_NEW
-                workBill.remark = order.remark
-                workBill.type = Constants.WORKBILLTYPE_NEW
-                workBill.smsNumber = order.sendMobile
+                val workBill = WorkBill().apply {
+                    attachbilltimes = 0
+                    buildtime = Date()
+                    courier = order.courier
+                    this.order = order
+                    pickstate = Constants.WORKBILLPICKSTATE_NEW
+                    remark = order.remark
+                    type = Constants.WORKBILLTYPE_NEW
+                    smsNumber = order.sendMobile
+                }
+
 
                 workBillDao.save(workBill)
                 println("工单信息：请到" + order.sendAddress + "取件，客户电话：" + order.sendMobile)

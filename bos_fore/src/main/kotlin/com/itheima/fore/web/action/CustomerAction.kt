@@ -57,7 +57,7 @@ class CustomerAction : ActionSupport(), ServletResponseAware, ModelDriven<Custom
         val sessionValiCode = ServletActionContext.getRequest().session.getAttribute("validateCode")
         return if (sessionValiCode != null && checkcode == sessionValiCode) {
             jmsTemplate.send("msg.sms", { session ->
-                session.createTextMessage("${model.username}你好,您的帐号注册成功,请前往邮箱进行激活")
+                session.createTextMessage("${model.username}你好,您的帐号注册成功,请前往邮箱进行激活")!!
             })
             service.save(model)
             SUCCESS
