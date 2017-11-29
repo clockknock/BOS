@@ -47,7 +47,7 @@ open class OrderServiceImpl : OrderService {
             if (iterator.hasNext()) {
                 //给order分配快递员
                 order.apply {
-                    orderType =Constants.ORDERTYPE_AUTO
+                    orderType = Constants.ORDERTYPE_AUTO
                     courier = iterator.next()
                 }
                 //给快递员创建工单

@@ -2,13 +2,29 @@
 基于itheimaSSH阶段物流管理项目
 
 
+
+```
+Kotlin入门也好久了,但好像还是不熟悉,熟悉一个语言还是用起来会熟悉更快,这是第二个Kotlin敲的项目,想着又要踩不少之前没踩过的坑,就做个记录,顺便分享分享,毕竟总会有人有点收获?虽然还是大多数还是按java的逻辑来敲,没用上太多它的操作符,但好歹享受了享受不用写部分繁杂模板代码的甜头?
+```
+
+
+
+
 ## IDEA的问题
 
-### 新建web模块
+### 使用前的准备
 
-以前课程上在Eclipse新建web模块的时候没有选择Create from archetype,在IDEA上我们创建web项目的时候最好从archetype创建,我们选择maven webapp
+我觉得不管用个啥软件,一开始该做的事情是看看它的快捷键,不管怎么说大部分快捷键都是比用鼠标操作要来得快,看快捷键最好去官网看:[Keyboard Shortcuts You Cannot Miss](https://www.jetbrains.com/help/idea/keyboard-shortcuts-you-cannot-miss.html) ,还有个[极客学院](http://wiki.jikexueyuan.com/project/intellij-idea-tutorial/keymap-introduce.html) 整理的中文版,官网那个是他们觉得用的最多最频繁的,极客学院那套好像是全部快捷键都给翻译过来了?
+
+然后....就可以开始了.(以前搞Android的用起IDEA会觉得很熟悉,毕竟快捷键是一致的)
 
 
+
+### 新建MavenWeb模块
+
+以前课程上在Eclipse新建web模块的时候没有选择Create from archetype,在IDEA上我们创建web项目的时候最好从archetype创建,因为它能帮我们生成一些默认文件夹与文件;
+
+我们选择maven webapp:
 
 ![mvnwebmodule01](/mdsrc/mvnwebmodule01.png)
 
@@ -94,13 +110,21 @@ IDEA和Spring一起用真的很舒服,不管是提示还是类的跳转都方便
 
 我们如果已经在Spring配置文件配置好了类或者通过注解扫描找到了类,我们可以通过IDEA自带的Generate生成Autowired依赖,快捷键是alt+Insert
 
-![autoWired](/mdsrc/autoWired01.png)
+![autoWired](/mdsrc/autowired01.png)
 
 如果是我们写的是Kotlin代码,那IDEA还能自动帮我们添加lateinit关键字,Kotlin果然是亲女儿
 
 这里有点小坑的就是,我这个模块依赖了另一个模块的WebService,注解没法扫描到,编译器会红色报错很丑,这里我就把错误压制了
 
-![autoWired](/mdsrc/autoWired02.png)
+![autoWired](/mdsrc/autowired02.png)
+
+
+
+### 不正确导包引起ClassNotFound
+
+以前刚开始用IDEA的时候遇到过明明在Modules里添加了jar包,运行起项目却说类找不到,也不知道那个时候是哪一步不正确,如果出现了这个问题,可以在Project Structure界面左下角的Problems解决,导包或者Module哪里有问题这里都有提示,点击Fix选一下基本就能解决绝大多数问题
+
+![artific](/mdsrc/artific01.png)
 
 
 
@@ -187,6 +211,41 @@ Hibernate生成一对多的Set时报错,Kotlin的类和Java的类不能互相引
 
 
 
+### apply操作符的使用
+
+以前java代码需要给创建的新对象手动赋值得这么做:
+
+```java
+					WorkBill workBill = new WorkBill();				
+					workBill.setAttachbilltimes(0);
+					workBill.setBuildtime(new Date());
+					workBill.setCourier(courier);
+					workBill.setOrder(order);
+					workBill.setPickstate("新单");
+					workBill.setRemark(order.getRemark());
+					workBill.setSmsNumber("123");
+					workBill.setType("新");
+```
+
+用apply操作符的话我们可以省一大串的对象引用(比如这里的workBill),眼尖的能看到下面有一行代码用到了this关键字,这是因为我在外部代码块也有一个order,为了区分对象,在apply里可以用this指定当前对象,想了解更多操作符相关内容,可以看看https://www.zeljko.link/2017/07/kotlin-also-apply-let-run.html
+
+```kotlin
+val workBill = WorkBill().apply { 
+                    attachbilltimes = 0
+                    buildtime = Date()
+                    courier = order.courier
+                    this.order = order
+                    pickstate = Constants.WORKBILLPICKSTATE_NEW
+                    remark = order.remark
+                    type = Constants.WORKBILLTYPE_NEW
+                    smsNumber = order.sendMobile
+                }
+```
+
+
+
+
+
 ### Lambda表达式
 
 还是写Android的时候匿名类多,JavaEE在基础阶段基本没啥机会碰到,好不容易碰到个就也截个图扔上来表示自己会用好了??
@@ -263,7 +322,7 @@ isNullOrBlank:true
 
 
 
-SubArea没有name字段(name字段是组合了其他三个字段的自定义字段),如何让生成的json带有name字段?
+### 怎么生成带自定义字段的json字符串?
 
 ```
 1.如果是使用json-lib的话,我们给SubArea添加一个getName方法,并返回province+city+district即可;
@@ -275,7 +334,7 @@ SubArea没有name字段(name字段是组合了其他三个字段的自定义字�
 
 
 
-spring报错:not a managed type class spring;
+### spring报错:not a managed type class spring
 
 ```xml
 <!-- 可能是配置jpa扫描的包没有把你新建的实体类扫描到,
@@ -293,7 +352,7 @@ spring报错:not a managed type class spring;
 
 
 
-Hibernate生成对应一对多的Set时报错;
+### Hibernate生成对应一对多的Set时报错
 
 ```java
 package com.mkyong.stock.model;
