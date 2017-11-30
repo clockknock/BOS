@@ -3,9 +3,10 @@
 
 
 
-```
-Kotlin入门也好久了,但好像还是不熟悉,熟悉一个语言还是用起来会熟悉更快,这是第二个Kotlin敲的项目,想着又要踩不少之前没踩过的坑,就做个记录,顺便分享分享,毕竟总会有人有点收获?虽然还是大多数还是按java的逻辑来敲,没用上太多它的操作符,但好歹享受了享受不用写部分繁杂模板代码的甜头?
-```
+
+Kotlin入门也好久了,但好像还是不熟悉,熟悉一个语言还是用起来会熟悉更快,这是第二个Kotlin敲的项目,想着又要踩不少之前没踩过的坑,就做个记录,顺便分享分享,
+毕竟总会有人有点收获?享受了享受不用写部分繁杂模板代码的甜头,也尝试着多用Kotlin的操作符/语法/本家lib的方法
+
 
 
 
@@ -128,8 +129,14 @@ IDEA和Spring一起用真的很舒服,不管是提示还是类的跳转都方便
 
 
 
-
 ## 语言类问题
+
+```
+Kotlin是一门比Java优雅的语言,很多时候用Java的模式写的代码,写了Java感觉的代码后IDEA如果有提示,
+那就让它帮着转换下,一般来说它帮着格式化的代码会更Kotlin
+```
+
+
 
 ### 基类的lateinit泛型对象创建
 
@@ -285,19 +292,26 @@ val workBill = WorkBill().apply {
 
 ```
 
-isNull---null的对象是null,是empty并且也是blank;反正如果已经是null就返回true了
+
 isNullOrEmpty:true
 isNullOrBlank:true
 ===============================================
 
-isEmpty---空字符串的对象会被isEmpty判断该字符长度是否为0,长度为0则返回true
+
 isNullOrEmpty:true
 isNullOrBlank:true
 ===============================================
-isSpace---带空格的对象会先被isNullOrBlank先判断长度是否为0,如果不是为0则判断它的自否是否都是空格
+
 isNullOrEmpty:false
 isNullOrBlank:true
+
+
+isNull---null的对象是null,是empty并且也是blank;反正如果已经是null就返回true了
+isEmpty---空字符串的对象会被isEmpty判断该字符长度是否为0,长度为0则返回true
+isSpace---带空格的对象会先被isNullOrBlank先判断长度是否为0,如果不是为0则判断它的自否是否都是空格
+就真的是见名知意,不用自己做好几个判断然后来个&&或||
 ```
+
 
 
 
